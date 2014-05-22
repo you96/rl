@@ -1,0 +1,2 @@
+https://developers.facebook.com/docs/opengraph
+按照教程做，但是有问题，不能发表facebook，也许是 og.likes 的API被我玩坏了。。

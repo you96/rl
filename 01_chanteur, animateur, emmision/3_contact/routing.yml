@@ -1,0 +1,138 @@
+radiolineco_webapp_index:
+    pattern:  /
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:index }
+radiolineco_webapp_radio:
+    pattern:  /radio/{name}-r-{permalink}.html
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:station }
+radiolineco_webapp_podcast:
+    pattern:  /podcast/{name}-p-{permalink}.html
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:podcast }
+radiolineco_webapp_radiobis:
+    pattern:  /radio/{name}-r{permalink}.html
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:stationredirect }
+radiolineco_webapp_podcastbis:
+    pattern:  /podcast/{name}-p{permalink}.html
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:podcastredirect }
+radiolineco_webapp_catalog:
+    pattern:  /c-{permalink}.html
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:catalog }
+radiolineco_webapp_moods:
+    pattern: /moods
+    defaults: {_controller:RadiolinecoWebappBundle:Generic:moods }
+radiolineco_webapp_moodStations:
+    pattern: /mood-{permalink}.html
+    defaults: {_controller:RadiolinecoWebappBundle:Generic:moodStations }
+radiolineco_webapp_search:
+    pattern:  /s-{query}
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:search }
+radiolineco_webapp_people:
+    pattern:  /people-{name}
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:people }
+radiolineco_webapp_peoplePlay:
+    pattern:  /pp-{name}
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:peoplePlay }
+radiolineco_webapp_emission:
+    pattern:  /emission-{permalink}
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:emission }
+radiolineco_ajax_signin1:
+    pattern: /signin/1
+    defaults: { _controller: RadiolinecoWebappBundle:Signin:login }
+radiolineco_ajax_pillowsuggest:
+    pattern: /Pillow/suggest/radio/{query}
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:suggest }  
+radiolineco_ajax_pillowplay:
+    pattern: /Pillow/{permalink}/play
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:play }
+radiolineco_ajax_pillowlive:
+    pattern: /Pillow/{permalink}/live
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:live }
+radiolineco_webapp_aboutUs:
+    pattern: /qui-sommes-nous
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:aboutUs }
+radiolineco_webapp_faq:
+    pattern: /faq
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:faq }
+radiolineco_webapp_redirect:
+    pattern: /redirect
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:redirect }
+radiolineco_webapp_press:
+    pattern: /presse
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:press }
+radiolineco_webapp_contact:
+    pattern: /contact
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:contact }
+radiolineco_webapp_addRadioReference:
+    pattern: /referencer-sa-radio
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:addRadioReference }
+radiolineco_webapp_becomePartner:
+    pattern: /devenir-partenaire
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:becomePartner }
+radiolineco_webapp_signinbloc:
+    pattern: /signinbloc
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:signinbloc }
+radiolineco_webapp_signupbloc1:
+    pattern: /signupbloc1
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:signupbloc1 }
+radiolineco_webapp_signupbloc2:
+    pattern: /signupbloc2
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:signupbloc2 }
+radiolineco_webapp_signupbloc3:
+    pattern: /signupbloc3
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:signupbloc3 }
+radiolineco_webapp_jeu1:
+    pattern: /jeu
+    defaults: { _controller: RadiolinecoWebappBundle:Jeu:jeu }
+radiolineco_webapp_jeu2:
+    pattern: /jeu/register
+    defaults: { _controller: RadiolinecoWebappBundle:Jeu:register }
+radiolineco_webapp_jeu3:
+    pattern: /jeu/congrat
+    defaults: { _controller: RadiolinecoWebappBundle:Jeu:congrat }
+radiolineco_webapp_jeusubmitForm:
+    pattern: /jeu/submitform
+    defaults: { _controller: RadiolinecoWebappBundle:Jeu:jeusubmitform }
+radiolineco_webapp_ajaxsignupsubmit:
+    pattern: /ajaxsignupsubmit
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:ajaxsignupsubmit }
+radiolineco_webapp_updateuser:
+    pattern: /updateuser
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:updateuser }
+radiolineco_webapp_ajaxsignupfacebooksubmit:
+    pattern: /ajaxsignupfacebooksubmit
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:ajaxsignupfacebooksubmit }
+radiolineco_webapp_ajaxsigninsubmit:
+    pattern: /ajaxsigninsubmit
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:ajaxsigninsubmit }
+radiolineco_webapp_logfb:
+    pattern: /logfb
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:logfb }
+radiolineco_webapp_horizontalmenu:
+    pattern: /horizontalmenu
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:horizontalmenu }
+radiolineco_webapp_headersignin:
+    pattern: /headersignin
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:headersignin }
+radiolineco_webapp_logout:
+    pattern: /logout
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:logout }
+radiolineco_webapp_resetpassword:
+    pattern: /resetpassword
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:resetpassword }
+radiolineco_webapp_cookieinfo:
+    pattern: /cookieinfo
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:cookieinfo }
+radiolineco_webapp_myaccount:
+    pattern: /myaccount
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:myaccount }
+radiolineco_webapp_addpreset:
+    pattern: /addpreset
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:addpreset }
+radiolineco_webapp_removepreset:
+    pattern: /removepreset
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:removepreset }
+radiolineco_webapp_presets:
+    pattern: /presets
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:presets }
+radiolineco_webapp_account:
+    pattern: /account
+    defaults: { _controller: RadiolinecoWebappBundle:Generic:account }

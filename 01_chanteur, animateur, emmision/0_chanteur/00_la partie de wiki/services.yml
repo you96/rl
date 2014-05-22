@@ -1,0 +1,13 @@
+parameters:
+#    radiolineco_webapp.example.class: Radiolineco\WebappBundle\Example
+    radiolineco_webapp.pillow.class: Radiolineco\WebappBundle\Service\RadiolinecoPillow
+services:
+#    radiolineco_webapp.example:
+#        class: %radiolineco_webapp.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    radiolineco_webapp.pillow:
+        class: Radiolineco\WebappBundle\Service\RadiolinecoPillow
+
+    radiolineco_webapp.wiki:
+        class: Radiolineco\WebappBundle\Service\RadiolinecoWiki

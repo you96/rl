@@ -1,0 +1,202 @@
+{% extends "RadiolinecoWebappBundle::layout.ajax.twig" %}
+
+
+{% block main_container %}
+			
+			<ul class="breadcrumb">
+				  <li><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_index') }}'); return false;" class="ajaxy ajaxy-page nogoUrl">{{ 'Home'|trans }}</a><span class="divider">&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;</span></li>
+				  <li class="active"><h1>{{ 'Listen to'|trans }} {{ station.path[0].name }} {{ 'radios live'|trans }}</h1></li>				  
+			</ul>
+			
+			<!--- begin content-->
+			<div class="row">
+				
+				<div class="main span8">
+						
+					
+					<div class="section  nomargin radio-station" id="radio-one">
+						<div class="section-header navbar">
+							<div class="desc  pull-left"><h2> {{ station.path[0].name }} - {{ station.path[0].baseline }} </h2></div>	
+							<div class="clearfix"></div>
+						</div>
+						
+						<div class="section-container">
+						
+							<div class="cover pull-left">
+							{% if station.body.content.show.animators[0].picture is defined %}
+								<img src="{{ station.body.content.show.animators[0].picture }}" height="196px" width="196px" alt="{{ 'Listen to'|trans }} {{ station.path[0].name }}" />
+							{% else %}
+								<img src="{{ station.path[0].logo }}" height="196px" width="196px" alt="{{ 'Listen to'|trans }} {{ station.path[0].name }}" />
+							{% endif %}	
+							<div class="action-mask">
+										<a href="javascript:;" onclick="playStation('{{ station.path[0].permalink }}'); return false;" class="s5 play nogoUrl"></a>																	
+								</div>
+								
+								
+								
+							</div>	
+							
+							<div class="show-info text-right pull-right">
+							
+								<div class="title">
+											<img src="{{ station.path[0].smallLogo }}" height="34px" width="34px" alt="{{ 'Listen to'|trans }} {{ station.path[0].name }} {{ 'online'|trans }}" class="pull-right"/>
+											<h3 class="pull-right">{{ station.path[0].name }} <span class="">{{ station.path[0].baseline }}</span></h3>																						
+											<div class="clearfix"></div>
+											<p class="desc">{{ station.path[0].description }}<br /><br />
+											Tags : 
+											<a style="color:#196FB7;" href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_search', { 'query': station.path[0].name }) }}'); return false;" class="nogoUrl" title="{{ 'Listen to'|trans }} {{ station.path[0].name }} {{ 'radios live'|trans }}">{{ station.path[0].name }}</a>
+											
+											{% if station.path[0].country is defined %}
+												, <a style="color:#196FB7;" href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_search', { 'query': station.path[0].country }) }}'); return false;" class="nogoUrl" title="{{ 'Listen to'|trans }} {{ station.path[0].country }} {{ 'radios live'|trans }}">{{ station.path[0].country }}</a>
+											{% endif %}
+											
+											{% if station.path[0].tags[0].type is defined %}
+											{% if station.path[0].tags[0].tagType == 'genre' %}
+												, <a style="color:#196FB7;" href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_search', { 'query': station.path[0].tags[0].searchName }) }}'); return false;" class="nogoUrl" title="{{ 'Listen to'|trans }} {{ station.path[0].tags[0].searchName }} {{ 'radios live'|trans }}">{{ station.path[0].tags[0].searchName }}</a>
+											{% endif %}
+											{% if station.body.content.track.artist.picture is defined %}
+												, <a style="color:#196FB7;" href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_people', { 'name': station.body.content.track.artist.name }) }}'); return false;" class="nogoUrl"  title="{{ 'Listen to'|trans }} {{ station.body.content.track.artist.name }}">{{ station.body.content.track.artist.name }}</a>
+											{% endif %}
+											{% if station.body.content.show.logo is defined %}
+												, <a style="color:#196FB7;" href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_emission', { 'permalink': station.path[0].permalink|replace({'radios/':''}) }) }}'); return false;" class="nogoUrl"  title="{{ 'Listen to'|trans }} {{ station.body.content.show.name }}">{{ station.body.content.show.name }}</a>
+											{% endif %}
+											{% if animatorShow != null %}
+												{% for animator in station.body.content.show.animators %}
+													{% if animatorShow[loop.index0] == true %}
+														, <a style="color:#196FB7;" href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_people', { 'name': animator.name }) }}'); return false;" class="nogoUrl"  title="{{ 'Listen to'|trans }} {{ animator.name }}">{{ animator.name }}</a>
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+											{% endif %}
+											</p>
+								</div>
+								<div class="action">
+										
+										<a href="javascript:;" onclick="playStation('{{ station.path[0].permalink }}'); return false;" title="{{ 'Listen to'|trans }} {{ station.path[0].name }}" class="btn2 s3 i-play3 nogoUrl">{{ 'Play'|trans }}</a>
+										
+										<a href="javascript:;" onclick="share('{{ url('radiolineco_webapp_radio', { 'name': station.path[0].name|replace({'.': '_'}), 'permalink': station.path[0].permalink|replace({'radios/': ''}) }) }}?l={{ 'lang'|trans }}', 'facebook', ''); return false;" title="{{ 'Share'|trans }} {{ station.path[0].name }}" class="s3 i-share4 nogoUrl"></a>
+										
+										{% if connected == true %}
+										{% if station.path[0].permalink in presets_array %}
+											<a href="javascript:;" onclick="return false;" class="s3 i-favourite4 active nogoUrl" style="cursor:default;"></a>
+										{% else %}
+											<a href="javascript:;" onclick="addpreset($(this), '{{ station.path[0].permalink }}'); return false;" class="s3 i-favourite4 nogoUrl"></a>	
+										{% endif %}
+										{% endif %}
+										
+										{% if station.path[0].web is defined %}
+										<style>
+										#radioweblink{
+										  width:24px;
+										  height:24px;
+										  background-image:url({{ asset('img/web-browser.png') }});
+										}
+										#radioweblink:hover {
+  											background-image:url({{ asset('img/web-browser_active.png') }});
+										}
+										</style>
+											<a href="{{ station.path[0].web }}" id="radioweblink" target="_blank" title="Site : {{ station.path[0].name }}" style="onmuse" class="nogoUrl"></a>
+										{% endif %}
+								</div>
+								<div class="clearfix hr"></div>
+								<div class="info2">
+								
+								{% if station.body.content.track.artist.picture is defined %}
+									<img class="pull-right mini-cover" alt="{{ 'Listen to'|trans }} {{ station.path[0].name }}" src="{{ station.body.content.track.artist.picture }}"  />
+								{% elseif station.body.content.show.animators[0].picture is defined %}
+									<img class="pull-right mini-cover" alt="{{ 'Listen to'|trans }} {{ station.path[0].name }}" src="{{ station.body.content.show.animators[0].picture }}"  />
+								{% else %}
+									<img class="pull-right mini-cover" alt="{{ 'Listen to'|trans }} {{ station.path[0].name }}" src="{{ station.path[0].logo }}"  />
+								{% endif %}
+								
+									<div class="pull-right status ">
+												
+												{% if station.path[0].onAir is defined %}
+													<span class="status">{{ 'On Air'|trans }}</span>&nbsp;&nbsp; <strong>”{{ station.path[0].onAir }}”</strong> <br/>
+												{% endif %}
+												
+												{% if station.body.content.track.artist.name is defined %}
+													<span class="artist">{{ station.body.content.track.artist.name }}</span>
+												{% elseif station.body.content.show.animators[0].name is defined %}
+													<span class="artist">{{ station.body.content.show.animators[0].name }}</span>
+												{% endif %}
+									</div>
+									
+									
+									<div class="clearfix"></div>
+								</div>
+							
+								
+							</div>
+							
+							<div class="clearfix"></div>
+							
+						</div>	
+							
+							
+					</div>
+					
+					{% if podcasts|length > 0 %}
+						{% include "RadiolinecoWebappBundle:Generic:station_podcasts_bloc.html.twig" %}
+					{% endif %}
+					<!--// end section-->	
+					
+
+						
+					
+{% endblock %}
+
+{% block similar_content %}
+{% if similar_stations.body.content[0] is defined %}
+<div class="section related-content">
+							
+						<div class="section-header navbar">
+							<div class="desc  pull-left "><h2>{{ 'similar_content'|trans }}</h2></div>	
+								
+							<div class="clearfix"></div>	
+								
+						</div>
+						
+						<div class="section-container2">
+							
+							<!--tab content-->
+							<div class="tabbable tabs-right">
+								  
+								  <div class="tab-content">
+								  
+										<!--tab item-->
+										<div id="rAA" class="tab-pane active" style="padding-left:10px;">
+												{% set count = 0 %}
+												{% for station in similar_stations.body.content %}
+													{% if count < 6 %}
+													{% if station.type == 'radio' %}
+												<!--item-->
+												<div class="item3">
+													
+													<div class="info pull-left">
+															<h3 class="title"><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station.permalink|replace({'radios/': ''}) }) }}'); return false;" title="{{ 'Listen to'|trans }} {{ station.name|upper }} {{ 'radios live'|trans }}" class="ajaxy ajaxy-page nogoUrl">{{ station.name }}</a></h3>
+															{% if station.baseline|length > 31 %}
+															<span class="type">{{ station.baseline|slice(0, 30) }}...</span>
+															{% else %}
+															<span class="type">{{ station.baseline }}</span>
+															{% endif %}
+													</div>
+													<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station.permalink|replace({'radios/': ''}) }) }}'); return false;" title="{{ 'Listen to'|trans }} {{ station.name|upper }} {{ 'radios live'|trans }}"><img src="{{ station.smallLogo }}" alt="{{'Listen to'|trans}} {{ station.name }} {{ 'online'|trans }}"  class="info-logo pull-right" /></a>
+													
+													<div class="clearfix"></div>
+												</div>
+												<!--//item-->
+															{% set count = count + 1 %}
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+										</div>	
+									<!-- //tab content-->
+								</div>
+						
+							</div>
+						</div>
+			
+				</div><!--// section-->
+{% endif %}
+{% endblock %}

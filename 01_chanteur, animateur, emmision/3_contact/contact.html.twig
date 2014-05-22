@@ -1,0 +1,74 @@
+{% extends "RadiolinecoWebappBundle::layout.html.twig" %}
+
+{% block main_container %}
+<div class="row">
+				
+				<div class="main span8">
+<h4>Nous contacter</h4>
+
+
+<div id="contact1" hide>
+<p>
+Votre message a bien été envoyé à notre service support. Votre demande sera traitée dans les plus brefs délais.
+</p>
+</div>
+
+
+<style>
+.form-control {
+    border: 0 none;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 12px;
+    line-height: 35px;
+}
+
+</style>
+<div id="contact2">
+<p>
+Vous n’avez pas trouvé de réponse à votre question sur nos FAQs ? (lien sur faq) Vous souhaitez ajouter une radio au catalogue de Radioline ? nous vous invitons à remplir le formulaire ci-dessous.
+</p>
+<p>
+<div>
+<form class="form-horizontal span5" id="formContact" style="text-align:center;" role="form">
+	<div id="alertdiv11" class="alert alert-danger hide"></div>
+	<div class="form-group">
+		<input name="inputfirstname" id="inputfirstname" type="text" class="form-control span5" style="height:28px;" placeholder="Votre nom">
+	</div>
+	<div class="form-group" style="margin-top:10px;">
+		<input name="inputemail" id="inputemail" type="email" class="form-control span5" style="height:28px;"  placeholder="Votre e-mail">
+	</div>
+	<div class="form-group" style="margin-top:10px;">
+		<select name="platformType" id="platformType" size="1" placeholder="Type d'application" class="form-control" style="width:385px;">
+			<option value="" disabled selected>Type d'application</option>
+    		<option value="iPhone">iPhone</option>
+    		<option value="Mac" >Mac</option>
+    		<option value="iPad" >iPad</option>
+    		<option value="Android" >Android</option>
+    		<option value="Web" >Web</option>
+    		<option value="Windows8" >Windows 8</option>
+		</select>
+	</div>
+	<div class="form-group" style="margin-top:10px;">
+		<select name="messageType" id="messageType" size="1" placeholder="Type de demande" class="form-control" style="width:385px;">
+			<option value="" disabled selected>Type de demande</option>
+    		<option value="bugReport">Signaler un problème</option>
+    		<option value="suggestion">Suggestion</option>
+    		<option value="pressContact">Contact Presse</option>
+    		<option value="AddRadio">Demande d’ajout de radio</option>
+		</select>
+	</div>
+	<div class="form-group" style="margin-top:10px;">
+		<textarea id="message" name="message" placeholder="Votre message" cols="100" rows="10" class="form-control span5"></textarea>
+	</div>
+	<div class="form-group" style="margin-top:10px;">
+		<button type="submit" class="btn btn-default pull-right" data-loading-text="En cours..." onclick="submitContactForm('{{ path('radiolineco_webapp_contact') }}'); return false;" >Envoyer</button>
+	</div>
+</form>
+<br>
+</div>
+</p>
+</div>
+
+
+{% endblock %}

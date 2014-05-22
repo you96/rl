@@ -1,0 +1,90 @@
+//View: horizontal_menu.bloc.twig add moods Button;
+	<li id="li4">
+		<a href="{{ path('radiolineco_webapp_moods') }}" onclick="$('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active'); $('#li4').removeClass('active'); $('#li4').addClass('active'); return false;" title="{{ 'Moods_title'|trans }}" class="s1 i-cate ajaxy ajaxy-page">
+			{{ 'Moods'|trans }}
+		</a>
+	</li>
+	<li id="li5"><a href="{{ path('radiolineco_webapp_moods') }}" onclick="$('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active');$('#li4').removeClass('active'); $('#li5').addClass('active'); return false;" title="{{ 'Moods_title'|trans }}" class="s1 i-favourite1">{{ 'Moods'|trans }}</a></li>
+
+并且添加removeclass到其他菜单栏
+//routing.yml
+radiolineco_webapp_moods:
+	pattern: //moods.html
+	defaults: {_controller:RadiolinecoWebappBundle:Generic:moods }
+//Controller: GenericController.php add moodsAction();
+对于moods标签而言，相当于另一个discovery标签，点击第一个没有用到permalink而点击第二个的用到了permalink
+moods.html.twig   对应于    catalog.html.twig
+moods_mood.html.twig  对应于  catalog_categories.html.twig
+
+    
+//++add isXmlHttpRequest()) ? mood.ajax.twig : mood.html.twig
+{% if moods[0] is defined and moods[0].type == 'tag' %}
+	{% include "RadiolinecoWebappBundle:Generic:moods_list_bloc.html.twig" %}	
+{% elseif moodStations['radios'] is defined %}
+	{% include "RadiolinecoWebappBundle:Generic:moods_stations_bloc.html.twig" %}
+{% endif %}
+转到moods_list.html.twig or  moods_station.html.twig
+创建新的routing & action(连接到moods.ajax/html.twig) 并转到 moods_station.html.twig
+radiolineco_webapp_moodStations:
+    pattern: /mood-{permalink}.html
+    defaults: {_controller:RadiolinecoWebappBundle:Generic:moodStations }
+创建新的action
+
+moodslist页面可以显示图片了，但是图片class没能调试出来，还有图片点击出现新页面也没出来
+
+
+11111111111111111最后看一遍ajax与html代码是否一致，我只改了ajax的代码。。。
+
+
+
+-------------------------------------------------------
+http://web.api.radioline.fr/Pillow/categories/radioline_selection
+http://localhost/web-radioline/web/app_dev.php/?host=fr-fr
+-------------------------------------------------------
+Qustion
+1.在moods页面上小标题写什么？
+
+
+
+
+
+
+
+ 
+--------------------------------------------------------------------
+403
+--------------------------------------------------------------------
+	
+http.conf
+
+Options Indexes FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+
+
+
+/opt/lampp/etc/extra/httpd-xampp.conf
+<LocationMatch "^/(?i:(?:xampp|security|licenses|phpmyadmin|webalizer|server-status|server-info))">
+        Require local
+	ErrorDocument 403 /error/XAMPP_FORBIDDEN.html.var
+</LocationMatch>
+
+
+
+
+
+============================================
+menu ---> horizontal_menu.bloc.twig ---> 
+					catalogAction ---> catalog.html.twig/ catalog.ajax.twig  --->  catalog_categoties_bloc.html.twig / catalog_stations_bloc.html.twig
+
+
+
+onair  的显示 	    indexAction --->  onair ---> selection_carroussel.html.twig
+---
+F41C9551032743A86144FAF493
+---
+http://web.api.radioline.fr/Pillow/categories/radioline_selection
+http://localhost/web-radioline/web/app_dev.php/?host=fr-fr
+========================================
+

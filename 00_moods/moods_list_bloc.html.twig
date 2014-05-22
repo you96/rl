@@ -1,0 +1,50 @@
+<div class="section  nomargin radio-station" id="radio-one">
+						<div class="section-header navbar">
+							<div class="desc  pull-left"><h2>{{ active_moods|trans }}</h2></div>	
+							<div class="clearfix"></div>
+						</div>
+						
+						<div class="section-container">
+						
+							<ul class="categories_stations">
+							{% for mood in moods %}
+								{% if from_ajax == 'true' %}
+								<!-- 
+								<li><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_moods', { permalink : mood.permalink|replace({'/':'--'})|replace({'_':'-'}) } ) }}'); return false;" class="ajaxy ajaxy-page nogoUrl" >{{ mood.name|trans }}</a></li>
+								 -->
+								<li class="item" style="background:white;">
+								    <img src="/web-radioline/web/img/{{ mood.permalink|replace('/','_') }}.png" class="colormood {{ mood.name }}" alt="{{'Listen to'|trans}} {{ mood.name }} {{ 'online'|trans }}" />
+								    <div class="mask mask3" style="padding-top:83px;">
+								        <span>{{ loop.index }}</span>  
+								        <span>{{ 'Mood'|trans }}</span>
+								        <span class="moods">{{ mood.name }}</span>
+								    </div>
+								    
+								
+							        <a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_moodStations', { permalink : mood.searchName } ) }}'); return false;"  title="{{ 'Listen to'|trans }} {{ 'Radiosh1'|trans }} {{ mood.name|trans }} {{ 'radios live'|trans }}" class="s2 action overview ajaxy ajaxy-page nogoUrl"  >
+							        	<div class="action-mask "></div>
+							        </a>
+								
+								    												
+								</li>
+								{% else %}
+								<li class="item" style="background:white;">
+								    <img src="/web-radioline/web/img/{{ mood.permalink|replace('/','_') }}.png" class="colormood {{ mood.name }}" alt="{{'Listen to'|trans}} {{ mood.name }} {{ 'online'|trans }}" />
+								    <div class="mask mask3" style="padding-top:83px;">
+								        <span>{{ loop.index }}</span>  
+								        <span>{{ 'Moods'|trans }}</span>
+								        <span class="moods">{{ mood.name }}</span>
+								    </div>
+								    <a href="{{ path('radiolineco_webapp_moodStations', { permalink : mood.searchName })}}" title="{{ 'Listen to'|trans }} {{ 'Radiosh1'|trans }} {{ mood.name|trans }} {{ 'radios live'|trans }}" class="s2 action overview ajaxy ajaxy-page" >
+								    	<div class="action-mask"></div>
+								    </a>												
+								</li>
+								
+								{% endif %}
+							{% endfor %}
+							</ul>
+							
+							<div class="clearfix"></div>
+							
+						</div>
+</div>				

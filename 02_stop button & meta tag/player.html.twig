@@ -1,0 +1,59 @@
+<div class="player-wrap" id="divplayer" style="display:none">
+		
+			<div class="container">
+						<div class="row channel-player">
+								<div id="playerflash" style="height:1px; width:1px;"></div>
+								
+								<div class="span1 album-cover" id="player_cover_div">
+										<img src="{{ asset('img/album/album1.jpg') }}" alt="" width="66" height="66" />
+								</div>
+								
+								<div id="rl_container" class="span8" >
+								
+									<div id="rplayer" class="jp-jplayer"></div>	
+									
+									<div class="controls pull-left">
+										<a id="playButton" tabindex="1" class="s2 rl-play nogoUrl" href="javascript:;" onclick="playNewLive();return false;" >play</a>
+										<a id="pauseButton" tabindex="1" class="s2 rl-pause nogoUrl" href="javascript:;" onclick="pauseStation();return false;">pause</a>
+									
+									</div>
+									
+									<div class="track-info pull-left">
+											<div class="rl-title" id="player_onair_div">
+											</div>
+											
+											<div class="rl-progress ">										
+												<div class="rl-seek-bar">
+													<div class="rl-play-bar" ><span></span></div>
+												</div>
+											</div>
+											
+											<div class="rl-current-time" id="current-time"></div>
+											<div class="rl-duration" id="duration"></div>
+											<div class="station" id="player_station_name_div"></div>
+											<div class="clearfix"></div>
+									</div>
+									
+									<div class="rl-volume-bar pull-left">
+										<div class="rl-volume-bar-value" ><span></span></div>
+									</div>
+									<a title="mute" tabindex="1" class="s2 rl-mute nogoUrl" href="javascript:;">mute</a>	
+									<a title="unmute" tabindex="1" class="s2 rl-unmute nogoUrl" href="javascript:;">unmute</a>	
+									
+									<div class="clearfix"></div>
+								</div>
+								
+								
+								
+								<div class="sharing span3">
+										
+										<a href="javascript:;" onclick="goUrl(currentRadiolink); return false" title="Overview" class="s2 i-view3 nogoUrl"></a>
+										<a href="javascript:;" onclick="share($('#website_root').text() + currentRadiolink+'?l={{ 'lang'|trans }}', 'facebook', ''); return false;" title="Share" class="s2 i-share3 nogoUrl"></a>
+										
+								
+								</div>
+								<div class="clearfix"></div>
+						</div>
+			</div>	
+			
+		</div>

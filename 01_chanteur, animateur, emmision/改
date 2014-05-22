@@ -1,0 +1,18 @@
+=> chanteur : supprimer listen et remplacer play par l'icone qui sera envoyee par Thibaut.
+=> emission : remplacer les podcasts de la radio par les chapters de l emission + enlever listen
+=> animateur : enlever play et listen
+//还有其中的副信息都改成可点击的
+
+emission:
+//station的permalink需要更改station.body.content.show.permalink
+//好吧，改出大问题了。。需要重新写关于emission的所有信息
+创建新的函数getShowFromStation
+！！！！！！！！！！！！最好以后将permalink改成show的而不是radio的！
+
+所涉及页面：emission controller pillow..
+
+people:没有明显的区分方式，来确定是否是chanteur还是animateur
+peopleAction中添加新的参数来确定是否是chanteur
+{type}-people-{name}
+
+所涉及页面：emission controller pillow routing people station

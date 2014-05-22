@@ -1,0 +1,78 @@
+{% extends "RadiolinecoWebappBundle::layout.html.twig" %}
+
+
+{% block main_container %}
+			
+			<ul class="breadcrumb">
+				  <li><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_index') }}'); return false;">{{ 'Home'|trans }}</a><span class="divider">&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;</span></li>
+				  <li class="active"><h1>{{ 'Listen to'|trans }} {{ name }} </h1></li>					  
+			</ul>
+			
+			<!--- begin content-->
+			<div class="row">
+				
+				<div class="main span8">
+						
+					
+					<div class="section  nomargin radio-station" id="radio-one">
+						<div class="section-header navbar">
+							<div class="desc  pull-left"><h2> {{ name }}  </h2></div>	
+							<div class="clearfix"></div>
+						</div>
+						
+						<div class="section-container">
+							
+							{%  if bio is empty	%}
+								{{ 'no result 1'|trans }}<br>
+								<br>
+								{{ 'no result 2'|trans }} <a href="javascript" onclick="goUrl('{{ path('radiolineco_webapp_contact') }}'); return false" style="nogoUrl" ><b>{{ 'no result 4'|trans }}</b></a>
+						</div>
+					</div>
+							{% else %}
+								<div class="cover pull-left">
+								{% if img is defined %}
+									<img src={{ img }} height="196px" width="196px" alt="{{ name }}" />
+								{% else %}
+									<img src="" height="196px" width="196px" alt="{{ name }}" />
+								{% endif %}	
+								</div>	
+								
+								<div class="show-info text-right pull-right">
+								
+									<div class="title">																					
+												<div class="clearfix"></div>
+												<p class="desc"  style="text-align:left">{{ bio }}<br /></p
+												<p class="desc"><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_search', { 'query': name }) }}'); return false;"title="{{ 'Listen to'|trans }} {{ name }} {{ 'live'|trans }}">{{ 'Listen'|trans }}&nbsp;&nbsp;</a>
+												</p>
+												
+									</div>
+									<div class="action">
+										 <a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_peoplePlay', { 'name': name }) }}'); return false;"title="{{ 'Listen to'|trans }} {{ name }} {{ 'radios live' |trans }}" class="btn2 s3 i-play3  nogoUrl">{{ 'Play'|trans }}</a>
+										<a href="javascript:;" onclick="share('{{ url('radiolineco_webapp_people', { 'name': name }) }}?l={{ 'lang'|trans }}', 'facebook', ''); return false;" title="{{ 'Share'|trans }} {{ name }}" class="s3 i-share4 nogoUrl"></a>
+										
+												
+									</div>
+	
+								
+									
+								</div>
+								
+								<div class="clearfix"></div>
+								
+								</div>	
+								
+								
+						</div>
+						<!--// end section-->	
+							{% endif %}
+						
+							
+					
+
+						
+					
+{% endblock %}
+
+{% block similar_content %}
+
+{% endblock %}

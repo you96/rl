@@ -1,0 +1,113 @@
+# English texts
+# Home page
+"lang" : "en"
+"site_title" : "Listen to live radio. Free Fm radio and podcast online"
+"site_description" : "Radioline gives you free access to more than 35,000 News, Sports, Talk, Music radio stations and podcasts worldwide!"
+"Discover"  : "Discover"
+"Share"     : "Share"
+"Enter a radio station, a show or a track..." : "Search for a radio station, podcast..."
+"Selection" : "On Air"
+"Selection_title" : "On the air on radio"
+"Radios stars" : "Selection"
+"Radios stars" : "Selection of live radio stations"
+"Categories" : "Discover"
+"Moods" : "Moods"
+"About" : "About us"
+"Legal Notie" : "Legal Notice"
+"Contact" : "Contact us"
+"Home_baseline" : "Radioline: listen and discover more than 35,000 live radio stations and podcasts"
+"Our selection" : "Featured Stations"
+"Previous" : "Previous"
+"Next" : "Next"
+"Tracks playing now" : "Tracks playing now"
+"Shows On Air" : "Shows On Air"
+"Listen to" : "Listen to"
+"online" : "online"
+"Radiosh1" : ""
+"radios live" : "stations online"
+"Episodes du podcast" : "Chapters of the podcast"
+
+# Station Page
+"Play" : "Play"
+"On Air" : "On Air"
+"Podcasts" : "Podcasts"
+"Last episod" : "Last episode"
+"Home" : "Home"
+
+# Podcast page
+
+# Chapters page 
+
+# catalog
+"root.catalog.name" : "Catalog"
+
+# Menu Corporate
+"About us" : "About us"
+"Press" : "Press"
+"Contact" : "Contact us"
+"addRadioReference" : "Add your radio station"
+"becomePartner" : "Become a partner"
+
+# Search
+"no result 1" : "No results matching your search were found."
+"no result 2" : "Make sure all words are spelled correctly or"
+"no result 3" : "contact us to add a radio station or a podcast to our catalog."
+"no result 4" : "contact us to add a new singer."
+
+
+"similar_content" : "Discover new Stations"
+"similar_podcasts" : "Discover new Podcasts"
+
+# professions
+"Manager" : "Manager"
+"Craftsman" : "Craftsman"
+"Shopekeeper" : "Shopekeeper"
+"Business owner" : "Business owner"
+"Worker" : "Worker"
+"Employee" : "Employee"
+"Student" : "Student"
+"Unemployed" : "Unemployed"
+"Retired" : "Retired"
+"Professional" : "Professional"
+"Other" : "Other"
+
+"cniltext_1" : "By using the Radioline site, you consent to the use of cookies. For more information, please see our"
+"cniltext_2" : "Cookie Policy"
+"cniltext_3" : "I accept"
+
+"Sign in" : "Sign in"
+"Sign up" : "Sign up"
+"Presets" : "Favourites"
+"Are you sure you want to remove this item form you favorites ?" : "Are you sure you want to remove this item form your favorites ?"
+"My Profile" : "My Profile"
+"Log out" : "Log out"
+"Enter your login details" : "Enter your login details"
+"Forgot password?" : "Forgot password ?"
+"A new password has been sent to you by email." : "A new password has been sent to you by email."
+"Create an account" : "Create an account"
+"Or connect with:" : "Or connect with:"
+"Connect with Facebook" : "Connect with Facebook"
+"Connect with your email" : "Connect with your email"
+"Already have an account?" : "Already have an account?"
+"Password" : "Password"
+"Gender" : "Gender"
+"FEMALE" : "FEMALE"
+"MALE" : "MALE"
+"Birthdate" : "Birthdate"
+"Country" : "Country"
+"Back" : "Back"
+"Save" : "Save"
+"Your account hase been updated" : "Your account has been updated"
+"My Account" : "My account"
+"send" : "Send"
+"cancel" : "cancel"
+
+"Delete" : "Delete"
+"Yes" : "Yes"
+"No" : "No"
+"Enter your Radioline identifier" : "Enter your Radioline identifier"
+"Your account had been created. To connect please" : "Your account had been created. To connect please"
+"Click here" : "Click here"
+"Modify your password?" : "Modify your password?"
+"Current Password" : "Current Password"
+"New Password" : "New Password"

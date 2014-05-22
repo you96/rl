@@ -1,0 +1,5 @@
+http://localhost/web-radioline/web/app_dev.php/?host=fr-fr
+
+
+twig建立两种类型html和ajax
+ajax不能在<a herf=""/>直接加连接，而是得使用javascript onclick function， 而html可以直接使用。。

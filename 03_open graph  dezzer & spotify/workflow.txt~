@@ -1,4 +1,3 @@
-111111111111111share111111111111111
 https://developers.facebook.com/docs/opengraph
 按照教程做，但是有问题，不能发表facebook，也许是 og.likes 的API被我玩坏了。。
 https://developers.facebook.com/docs/opengraph/getting-started
@@ -21,4 +20,4 @@ https://www.facebook.com/dialog/share?
   &display=popup
   &href=https%3A%2F%2Fyou96.github.io%2Ftest.html
   &redirect_uri=http://you96.github.io/test1.html
-111111111111111og111111111111111
+

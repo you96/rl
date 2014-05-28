@@ -169,4 +169,5 @@ pause&stop 按钮错误
 --15/05/14
 
 汗，直接改3257就好了
-.rl-stop:hover{ background-position: 0px  -3257px}
+.rl-stop{ background-position: 0px  -3186px }
+.rl-stop:hover{ background-position: 0px  -3244px}

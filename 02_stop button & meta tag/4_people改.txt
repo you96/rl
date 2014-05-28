@@ -137,7 +137,7 @@ main.js文件中添加新的方法checkContactForm()，来检测是否都是有�
 stop button
 在player.twig中找到view，
 然后在main.js中使用jplayer插件，插件放在plugins.js文件中，修改。。
-谢特！！！你丫原先的js文件直接删除了stop～～
+谢特！！！你丫原先的js文件直接删除了stop～～(将jplayer插件更新到最新到plugin中，并将原来的放入1525-3198文件中)
 
 可以使用stop按键，但是与pause和play不能放一起
 so，只能使用pause按键，再点击play的话，直接重新载入界面？（还是重新载入play.twig?）

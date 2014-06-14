@@ -77,6 +77,24 @@ musician	http://you96.github.io/rl/mj.html
 
 
 parfait!  ？？？但是song2可以song不可以
----4/6
 问过祖贝尔
 应该添加事件，收听30s的时间再去发布fb
+---4/6
+————
+期间test以前做过的在preprod中，并测试prod
+————
+在main.js的playStation函数中添加计时器，当达到30s的时候，发布信息。。
+ //counting time in order to publish open graph on your facebook
+    var timer = 0;
+    //countingTime(timer);
+function countingTime(timer){
+    timer++;
+    if(timer>30){
+        console.log('listen more than 30s, need to publish the open graph');
+    }else{
+        setTimeout(countingTime(timer),1000);
+    }
+}
+---12/6
+大体思路：
+只有一种方式触发open graph，就是在playstation中添加，而且要满足超过30s的前提条件。

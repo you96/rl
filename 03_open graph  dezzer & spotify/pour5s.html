@@ -1,0 +1,33 @@
+<html>
+<head>
+	<title>pour compter 5s'</title>
+	<script type="text/javascript">
+		var t
+		var c=0
+		function test(){
+			clearTimeout(t)
+			console.log('commencer!')
+			t=setTimeout('console.log("il est deja 5 s")',5000)
+		}
+		function show(){
+			clearTimeout(t)
+			document.getElementById('time').value=c
+			c++
+			if(c>5){
+				alert('5s')
+				clearTimeout(t)
+			}else{
+				t=setTimeout('show()',1000)
+			}
+		}
+	</script>
+</head>
+<body>
+
+	<div>cliquez le bouton pour compter secs</div>
+	<input type='button' value='Test sur console' onclick='test()' /><br/>
+	<input type='button' value='Commencer!' onclick='c=0,show()' />
+	<input type='text' id='time'>
+	
+</body>
+</html>

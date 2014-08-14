@@ -1,6 +1,29 @@
 infos_station = '';
 typeaheadtext = '';
+canaudioad = true;
+trackbuyurl = '';
+lastitunessearch = '';
+canupdateonair = true;
+shoutcastattempt = 0;
+var t;
+var trackList;
 $(document).ready(function() {
+    //facebook open graph
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '597312443700897',
+            xfbml      : true,
+            version    : 'v2.0'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
   // Handler for .ready() called.
   $('.help').popover();
   $('input.ckrds').prettyCheckable();
@@ -14,10 +37,21 @@ $(document).ready(function() {
 					});
 				},
 			error: function (event) {
-				if( event.jPlayer.error.type == $.jPlayer.error.URL_NOT_SET){
-					//playNewLive();
-				}else
-					playShoutCast();
+				if (event.jPlayer.error.type != $.jPlayer.error.URL_NOT_SET) {
+					if (shoutcastattempt == 0) {
+						shoutcastattempt = 1;
+					    playShoutCast(';stream');
+					}else{
+						if (shoutcastattempt == 1) {
+							shoutcastattempt = 2;
+						    playShoutCast('/;stream.nsv');
+						}else{
+							shoutcastattempt = 0;
+							//if (sitelang == 'fr'){ alert('La lecture du flux a échoué'); }
+					    	//else { alert('Stream playing failed'); }
+						}
+					}
+				}
 			},
 			//swfPath: "js",
 			swfPath: "http://www.jplayer.org/latest/js/Jplayer.swf",
@@ -336,6 +370,8 @@ function playStation(permalink){
 		}
 	}
 	
+	//if (canaudioad == true) return checkAudioAd(permalink);
+	
 	$("#divbr").show();
 	$("#player_cover_div").empty();
 	$("#player_onair_div").empty();
@@ -345,7 +381,8 @@ function playStation(permalink){
 
 	
 	infos_station = [];
-	
+    counter(permalink);
+
 //	$.getJSON('/Pillow/' + permalink.replace('/', '__') + '/play', function(data)
 	$.getJSON('/Pillow/' + permalink + '/play', function(data)
 	{
@@ -388,29 +425,32 @@ function playStation(permalink){
 		$("#player_station_name_div").append(infos['name']);
 		
 		//if (infos['isShoutcast'] == true) infos['url'] = infos['url'] + ';stream';
-		
-		if (infos['format'] == 'mp3') $("#rplayer").jPlayer("setMedia", {
-			mp3 : infos['url']
-		});
-		else $("#rplayer").jPlayer("setMedia", {
-				m4a : infos['url']
+		if (typeof infos['url'] != 'undefined'){
+			if (infos['format'] == 'mp3') $("#rplayer").jPlayer("setMedia", {
+				mp3 : infos['url']
 			});
-		$("#rplayer").jPlayer("play");
-		
+			else $("#rplayer").jPlayer("setMedia", {
+					m4a : infos['url']
+				});
+			$("#rplayer").jPlayer("play");
+		}
 		
 		
 		//$('#playerflash').html('<div id="playerflash"><object id="audioplayer_1" name="audioplayer_1" data="/~znadri/radioline.co/web/js/player.swf" type="application/x-shockwave-flash" height="1" width="1"><param value="1" name="width"><param value="#FFFFFF" name="bgcolor"><param value="transparent" name="wmode"><param value="false" name="menu"><param value="animation=yes&amp;encode=yes&amp;initialvolume=60&amp;remaining=no&amp;noinfo=no&amp;buffer=5&amp;checkpolicy=no&amp;rtl=no&amp;bg=E5E5E5&amp;text=333333&amp;leftbg=CCCCCC&amp;lefticon=333333&amp;volslider=666666&amp;voltrack=FFFFFF&amp;rightbg=B4B4B4&amp;rightbghover=999999&amp;righticon=333333&amp;righticonhover=FFFFFF&amp;track=FFFFFF&amp;loader=009900&amp;border=CCCCCC&amp;tracker=DDDDDD&amp;skip=666666&amp;soundFile='+infos['url']+'&playerID=audioplayer_1" name="flashvars"></object></div>');
 		//AudioPlayer.embed("audioplayer_1", {soundFile:infos['url']});
 
 		if (data.path[0].type == 'chapter') {
-			$("#pauseButton").css("margin-top",'-13px');
+			//$("#pauseButton").css("margin-top",'-13px');
 			$("#pauseButton").removeClass("rl-stop");
+			$("#pauseButton").addClass("rl-pause");
 			currentRadiolink = 'podcast/podcast-p-' + data.path[0].podcastPermalink.replace('podcasts/', '') + '.html';
 			$('#duration').show();
+			
 		}
 		else  {
+			$("#pauseButton").removeClass("rl-pause");
 			$("#pauseButton").addClass("rl-stop");
-			$("#pauseButton").css("margin-top",'13px');
+			//$("#pauseButton").css("margin-top",'13px');
 			currentRadiolink = 'radio/radio-r-' + data.path[0].permalink.replace('radios/', '') + '.html';
 			$('#duration').hide();
 			
@@ -419,25 +459,115 @@ function playStation(permalink){
 		if (typeof permalinkCurrent == 'undefined' || permalinkCurrent != permalink) playStation(permalink);
 			
 		permalinkCurrent = permalink;
-		
-		setInterval('updateOnAir()', 20000);
+		updateOnAir();
+		setInterval('updateOnAir()', 30000);
 	});
 }
+function counter(permalink){
+    //counting time in order to publish open graph on facebook
+    FB.getLoginStatus(function(response) {
+	if (response.status === 'connected') {
+		var timer=5000;
+    		clearTimeout(t);
+    		t = setTimeout(function(){publishOg(permalink);},timer);
+	}else if (response.status === 'not_authorized') {
+    	console.log("the user is logged  to Facebook, but has not authenticated your app");
+  	} else {
+    	console.log("the user isn't logged in to Facebook.");
+  	}
+});
+}
+function publishOg(permalink){
+    //console.log(permalink);
+    if(permalink.indexOf('radios') != -1){
 
-function pauseStation(){
-	if($("#duration").css("display")=="none"){
-		$("#rplayer").jPlayer("clearMedia");
-	}
+         FB.api(
+         'me/music.listens',
+         'post',
+         {
+         song: 'http://fr-fr.radioline.co/radio/radio-r-'+permalink.replace('radios/','')+'.html'
+         },
+         function (response) {
+            if (response && !response.error) {
+
+                if (!response) {
+                    console.log('Error occurred.');
+                } else if (response.error) {
+                    console.log(response.error);
+                    alert(response.error.message);
+                } else {
+                    console.log('Post ID: ' + response.id);
+                }
+            }
+         }
+         );
+
+    }else if(permalink.indexOf('chapters') != -1){
+
+        $.getJSON('/Pillow/' + permalink , function(data){
+            var p = data.body.content.podcastPermalink;
+            FB.api(
+             'me/music.listens',
+             'post',
+             {
+             song: 'http://fr-fr.radioline.co/podcast-p-'+ p.replace('podcasts','')+'.html'
+             },
+            function (response) {
+                if (response && !response.error) {
+
+                    if (!response) {
+                        console.log('Error occurred.');
+                    } else if (response.error) {
+                        console.log(response.error);
+                        alert(response.error.message);
+                    } else {
+                        console.log('Post ID: ' + response.id);
+                    }
+                }
+            }
+             );
+
+        });
+
+
+    }else{
+        console.log('error');
+    }
 }
 
-function playShoutCast(){
+function publishOgTrack(stationpermalink, singerpermalink){
+    FB.api(
+        'me/music.listens',
+        'post',
+        {
+            song: stationpermalink,
+            musician: singerpermalink
+        },
+        function (response) {
+            if (response && !response.error) {
+
+                if (!response) {
+                    console.log('Error occurred.');
+                } else if (response.error) {
+                    console.log(response.error);
+                    alert(response.error.message);
+                } else {
+                    console.log('Post ID: ' + response.id);
+                }
+            }
+        }
+    );
+}
+
+
+function playShoutCast(supp_string){
 	//if (infos_station['isShoutcast'] != true) return false;
-	
+	if (typeof infos_station['url'] == 'undefined') return false;
 	if (infos_station['format'] == 'mp3') $("#rplayer").jPlayer("setMedia", {
-		mp3 : infos_station['url'] + ';stream'
+		mp3 : infos_station['url'] + supp_string
 	});
 	else $("#rplayer").jPlayer("setMedia", {
-			m4a : infos_station['url'] + ';stream'
+			m4a : infos_station['url'] + supp_string
 		});
 	$("#rplayer").jPlayer("play");
 }
@@ -453,19 +583,32 @@ function playPodcast(permalink, url){
 
 function updateOnAir()
 {
+	if (canupdateonair == false) return false;
+	canupdateonair = false;
+	setTimeout(function(){canupdateonair = true;}, 20000);
+	
 	if(permalinkCurrent != undefined)
 	{
 //		$.getJSON('/Pillow/' + permalinkCurrent.replace('/', '__') + '/live', function(data)
 		$.getJSON('/Pillow/' + permalinkCurrent + '/live', function(data)
 		{
 			var infos = {};
-			
+			infos['onAir'] = data.path[0].baseline;
 			if (typeof data.path[0].onAir != 'undefined') infos['onAir'] = data.path[0].onAir;
-			else infos['onAir'] = data.path[0].baseline;
+			else{
+				if (typeof data.body.content.show != 'undefined'){
+				    if (typeof data.body.content.show.name != 'undefined') infos['onAir'] = data.body.content.show.name;
+				}else{
+					if (typeof data.body.content.track != 'undefined'){
+						if (typeof data.body.content.track.name != 'undefined' && typeof data.body.content.track.artist.name != 'undefined') infos['onAir'] = data.body.content.track.name + ' - ' + data.body.content.track.artist.name;
+						else infos['onAir'] = data.path[0].baseline;
+					}
+				}
+				
+			}
 			
 			if (infos['onAir'].length > 42) infos['onAir'] = '<div width="340px;"><marquee width="340px;" scrollamount="2">' + infos['onAir'] + '</marquee></div>';
-
-			
+			checkAffItunes(data);
 			$("#player_onair_div").empty();
 			$("#player_onair_div").append(infos['onAir']);
 		});
@@ -477,7 +620,7 @@ function playNewLive()
 	if($("#duration").css("display")=="none"){
 		if(permalinkCurrent != undefined)
 		{
-//			$.getJSON('/Pillow/' + permalinkCurrent.replace('/', '__') + '/live', function(data)
+			//$.getJSON('/Pillow/' + permalinkCurrent.replace('/', '__') + '/live', function(data)
 			$.getJSON('/Pillow/' + permalinkCurrent + '/play', function(data)
 			{
 				
@@ -500,6 +643,64 @@ function playNewLive()
 	}	
 }
 
+function checkAffItunes(data){
+	//affiliation
+	if (typeof data.body.content.track != 'undefined'){
+		track = 'null';
+		singer = 'null';
+		if (typeof data.body.content.track.name != 'undefined') track = data.body.content.track.name;
+		if (typeof data.body.content.track.artist.name != 'undefined') singer = data.body.content.track.artist.name;
+        if (typeof data.body.content.track.artist.permalink != 'undefined') singerPermalink = data.body.content.track.artist.permalink;
+
+        if (lastitunessearch == track + ' ' + singer) return false;
+		
+		lastitunessearch = track + ' ' + singer;
+        var isLogin = false;
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                isLogin = true;
+            }else if (response.status === 'not_authorized') {
+                console.log("the user is logged in to Facebook, but has not authenticated your app");
+            } else {
+                console.log("the user isn't logged in to Facebook.");
+            }
+        });
+
+		if (track != 'null'){
+            if(isLogin){
+                //Open Graph + track
+                var inList = false ;
+                for(var i=0;i<trackList.length;i++){
+                    if(trackList[i] == track){
+                        inList = true;
+                    }
+                }
+                if(!inList){
+                    trackList.push(track);
+                    publishOgTrack('http://fr-fr.radioline.co/radio/'+track+'from'+singerPermalink.replace('people/','')+'-r-'+data.path[0].permalink.replace('radios/','')+'.html','http://fr-fr.radioline.co/people/1-people-'+track.artist.permalink.replace('people/','')+'.html');
+                }
+            }
+			var xhr = $.ajax({
+				url: $('#website_root').text()+'itunessearch/'+singer+'/'+track
+			}).success(function(data) {
+				if (data == 'NOK') $("#buytrackdiv").hide();
+				else{
+					trackbuyurl = data;
+					$("#buytrackdiv").show();
+				}
+				
+			});
+		}else{
+			$("#buytrackdiv").hide();
+		}
+	}else{
+		$("#buytrackdiv").hide();
+	}
+}
+function affitunesopen(){
+	if (trackbuyurl != '') window.open(trackbuyurl);
+	return false;
+}
 function goUrl(e)
 {
 	if (canmodal == true) $('#pleaseWaitDialog').modal('show');
@@ -758,6 +959,7 @@ function logout(){
 }
 
 function addpreset(afav, permalink){
+
 	if (afav.hasClass('active') == true) return false;
 	
 	$.getJSON($('#website_root').text() + 'addpreset?permalink=' + permalink, function(data)
@@ -774,6 +976,7 @@ function addpreset(afav, permalink){
 		setTimeout(function(){afav.tooltip('hide');}, 2000);
 		return true;
 	});
+    publishOg(permalink);
 }
 
 function removepreset(index, permalink){
@@ -1034,4 +1237,74 @@ function readCookie(name) {
 		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
 	}
 	return null;
+}
+
+function checkAudioAd(permalink){
+	
+	//audioadurl = 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/110253807/RadiolineWebAudio300x250&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url='+$('#website_root').text()+'&correlator=' + new Date().getTime();
+	audioadurl = '/~znadri/radioline.co_git/web-radioline/web/dfpsample.xml';
+	$.ajax( {
+        type: "GET",
+        url: audioadurl,
+        dataType: "xml",
+        success: function(xml) { 
+        	if ($(xml).find('Duration').text() == '') {
+        		skipAudioAd(2000);
+        		playStation(permalink);
+        		return false;
+        	}
+        	AdTitle = $(xml).find('AdTitle').text();
+        	Duration = $(xml).find('Duration').text();
+        	Impression = $(xml).find('Impression').text();
+        	MediaFile = '';
+        	$(xml).find('MediaFile').each( function(){ 
+        		if (MediaFile == '') MediaFile = $(this).text();
+        	});
+        	StaticResource = $(xml).find('StaticResource').text();
+        	CompanionClickThrough = $(xml).find('CompanionClickThrough').text();
+        	
+        	if (MediaFile == ''){
+        		skipAudioAd(2000);
+        		playStation(permalink);
+        		return false;
+        	}
+        	
+        	$("#divbr").show();
+        	$("#player_cover_div").empty();
+        	$("#player_onair_div").empty();
+        	$("#player_station_name_div").empty();
+        	
+        	$("#divplayer").fadeIn("slow");
+
+        	$("#rplayer").jPlayer("setMedia", {
+    			mp3 : MediaFile
+    		});
+        	$("#rplayer").bind($.jPlayer.event.ended + ".jp-end", function(event) {
+        		$("#rplayer").unbind($.jPlayer.event.ended + ".jp-end");
+        		$('#bancampanion').hide();
+        		$('#div-gpt-ad-1384442861876-0').show('slow');
+        		skipAudioAd(5000);
+        		$("#player_cover_div").show();
+        		playStation(permalink);
+        	});
+        	if (StaticResource != ''){
+        		$('#div-gpt-ad-1384442861876-0').hide();
+        		$('#bancampanion').empty();
+        		$('#bancampanion').append('<a href="'+CompanionClickThrough+'" target="_blank"><img src="'+StaticResource+'"></a>');
+        		$('#bancampanion').show('slow');
+        	}
+        	
+        	$("#player_cover_div").hide();
+    		$("#player_onair_div").empty();
+    		$("#player_station_name_div").empty();
+    		$("#player_onair_div").append(AdTitle);
+    		$("#player_station_name_div").append('Publicité');
+    		$("#rplayer").jPlayer("play");
+        }
+	});
+}
+function skipAudioAd(time){
+	canaudioad = false;
+	setTimeout(function(){canaudioad = true;}, time);
+	
 }

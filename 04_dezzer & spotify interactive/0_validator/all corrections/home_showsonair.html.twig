@@ -1,0 +1,78 @@
+<div id="rB" class="tab-pane">
+												
+												<div id="shows" class="list_carousel slide">
+							
+															<!-- Carousel items -->
+															  <ul id="" class="rcarousel23">
+																	
+																	{% for show in showsonair %}
+																	<!--item {{ show['name'] }} -->
+																	<li class="item item2 text-right">
+																		
+																		<img src="{{ show['showImage'] }}" alt="{{ 'Listen to'|trans }} {{ show['name'] }} {{ 'online'|trans }}" width="141" height="141" />
+																	
+																		<h3>{{ show['name']|upper }}</h3>  
+																		<span class="title">{{ show['onAir'] }}</span>
+																		<span  class="author">{{ show['peopleName'] }}</span>
+																		<div class="action-mask">
+														
+																				<a href="javascript:;" onclick="playStation('{{ show['permalink'] }}'); return false;" class="s2 action play nogoUrl"></a>
+																				<a href="{{ path('radiolineco_webapp_radio', { 'name': show["name"], 'permalink': show["permalink"]|replace({'radios/': ''}) }) }}" class="s2 action overview ajaxy ajaxy-page"></a>
+																			
+																		</div>
+																	</li>
+																	<!--//item {{ show['name'] }}-->
+																	{% endfor %}
+															  </ul>	
+													</div>		  
+												
+												
+										</div>
+										
+										
+										<!--
+<div class="section" id="rcarousel23">
+						<div class="section-header section-dynamic-header">
+							<div class="desc  pull-left section-tab"><h2><strong id="sstatus">{{ 'Tracks playing now'|trans }}</strong></h2></div>
+						
+							
+							
+							{% if cfile == 'RadiolinecoWebappBundle:Generic:index.html.twig' %}
+							<ul class="pager  pull-right">
+								<li><a href="#" class="s1 prev prev2 prev23 nogoUrl" >{{ 'Previous'|trans }}</a></li>
+								<li><a href="#"  class="s1 next next2 next23 nogoUrl">{{ 'Next'|trans }}</a></li>
+							</ul>							
+							{% endif %}
+							
+							<div class="clearfix"></div>
+						</div>
+						
+						<div class="tabbable tabs-right">
+										 
+										 
+								 <ul class="nav nav-tabs">
+									<li class="active"><a data-toggle="tab" href="#rA" class="i-track nogoUrl" id="atrack"><span class="s2 "><strong id="sstatus">{{ 'Tracks playing now'|trans }}</strong></span></a></li>
+									<li><a data-toggle="tab" href="#rB" class="i-show nogoUrl" id="ashow"><span class="s2"><strong id="sstatus">{{ 'Shows On Air'|trans }}</strong></span></a></li>									
+								  </ul>
+								  
+								  <div class="tab-content">
+								  
+										<!--tab item-->
+										{% include "RadiolinecoWebappBundle:Generic:home_tracksonair.html.twig" %}
+										
+										<!--//tab item-->
+										
+										<!--tab item-->
+										{% include "RadiolinecoWebappBundle:Generic:home_showsonair.html.twig" %}
+										<!--//tab item-->
+										
+										
+								  </div>
+							
+						</div>
+						
+					</div>
+					
+		-->			
+					
+										

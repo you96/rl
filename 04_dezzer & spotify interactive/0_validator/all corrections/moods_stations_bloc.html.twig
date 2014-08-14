@@ -1,0 +1,52 @@
+<div class="section">
+						<div class="section-header navbar">
+							<div class="desc  pull-left"><h2 class="black"><strong>{{ active_moods|trans }}</strong></h2></div>
+								
+							<div class="clearfix"></div>
+						</div>
+						<div class="section-container" style="height:{{ divheight }}px;">
+							<ul class="categories_stations">
+											
+											
+										{% for station in moodStations['radios'] %}	
+											<!--item {{ station.name }}-->
+											<li class="item" style="background:white;">
+												
+												<img src="{{ station.logo }}" alt="{{'Listen to'|trans}} {{ station.name }} {{ 'online'|trans }}" width="141" height="141" />
+												<div class="mask text-right" style="padding-top:104px;">  
+													<h3 style="color:#FFFFFF; line-height:1.3">{{ station.name|upper }}</h3>											
+												</div>
+												<div class="action-mask">
+															{% if connected == true %}
+															{% if station.permalink in presets_array %}
+															<a href="javascript:;" onclick="return false;" class="s2 action favourite active nogoUrl" style="cursor:default;"></a>
+																{% else %}
+															<a href="javascript:;" onclick="addpreset($(this), '{{ station.permalink }}'); return false;" class="s2 action favourite nogoUrl"></a>	
+															{% endif %}
+															{% endif %}
+															
+														{% if (station.type == 'radio') %}
+														
+															<a href="javascript:;" onclick="playStation('{{ station.permalink }}'); return false;" class="s2 action play nogoUrl"></a>
+															{% if from_ajax == 'true' %}
+															<a href="javascript:;" onclick= "$('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active'); goUrl('{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station.permalink|replace({'radios/': ''}) }) }}'); return false;" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+															{% else %}
+															<a href="{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station.permalink|replace({'radios/': ''}) }) }}" title="{{ 'Listen to'|trans }} {{ station.name|upper }} {{ 'radios live'|trans }}" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+															{% endif %}
+														{% else %}
+															<a href="javascript:;" onclick="playPodcast('{{ station.permalink }}', '{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': station.permalink|replace({'podcasts/': ''}) }) }}'); return false;" class="s2 action play nogoUrl"></a>
+															{% if from_ajax == 'true' %}
+															<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': station.permalink|replace({'podcasts/': ''}) }) }}'); return false;" title="{{ 'Listen to'|trans }} {{ station.name }} {{ 'online'|trans }}" class="s2 action overview ajaxy ajaxy-page"></a>
+															{% else %}
+															<a href="{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': station.permalink|replace({'podcasts/': ''}) }) }}" title="{{ 'Listen to'|trans }} {{ station.name }} {{ 'online'|trans }}" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+															{% endif %}
+														{% endif %}
+												</div>
+												
+											</li>
+											<!-- end item -->
+										{% endfor %}
+										</ul>
+							</div>
+					
+			</div>		

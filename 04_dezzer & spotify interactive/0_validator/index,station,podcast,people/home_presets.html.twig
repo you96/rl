@@ -1,0 +1,57 @@
+<div class="section" id="rcarousel3">
+						<div class="section-header">
+							<div class="desc  pull-left"><h2><strong>{{ 'Presets'|trans }}</strong></h2></div>
+							
+													
+							<div class="clearfix"></div>
+						</div>
+						
+						<div class="section-container">
+							<div id="presets_selection">
+								<div class="list_carousel slide ">
+								
+									 <!-- Carousel items -->
+										<ul class="rcarousel">
+											
+											{% set count = 0 %}
+											{% for station in presets %}
+											
+											<!--item {{ station.name }}-->
+											
+											{% if station.type == 'radio' %}
+											{% if count <= 3 %}
+											<li class="item">
+												
+												<img src="{{ station.logo }}" alt="{{ 'Listen to'|trans }} {{ station.name }} {{ 'online'|trans }}" width="141" height="141" />
+												<div class="mask text-right" style="padding-top:120px;">  
+													<h3 style="color:#FFFFFF;">{{ station.name|upper }}</h3>											
+												 </div>
+												
+												<div class="action-mask">
+														
+														
+														<a href="javascript:;" onclick="playStation('{{ station.permalink|replace({'-': '_'}) }}'); return false;" class="s2 action play nogoUrl"></a>
+														{% if from_ajax == 'true' %}
+														<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station.permalink|replace({'radios/': ''}) }) }}'); return false;" title="{{ 'Listen to'|trans }} {{ station.name }} {{ 'radios live'|trans }}" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+														{% else %}
+														<a href="{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station.permalink|replace({'radios/': ''}) }) }}" title="{{ 'Listen to'|trans }} {{ station.name }} {{ 'radios live'|trans }}" class="s2 action overview ajaxy ajaxy-page"></a>
+														{% endif %}
+												</div>
+												
+											</li>
+											{% set count = count + 1 %}	
+											{% endif %}
+											{% endif %}
+											<!--//item {{ station.name }}-->
+											{% endfor %}
+										
+										</ul>
+									  <!-- Carousel nav -->
+								</div>
+							</div>
+							
+							<div class="clearfix"></div>
+						</div>	
+							
+							
+					</div>

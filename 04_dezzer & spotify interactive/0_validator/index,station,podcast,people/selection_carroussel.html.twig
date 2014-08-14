@@ -1,0 +1,57 @@
+<div class="section" id="home-rcarousel">
+						<div class="section-header">
+							<div class="desc  pull-left"><h2><strong>{{ 'Our selection'|trans }}</strong></h2></div>
+							
+													
+							<div class="clearfix"></div>
+						</div>
+						
+						<div class="section-container">
+							<div id="selection">
+								<div class="list_carousel slide ">
+								
+									 <!-- Carousel items -->
+										<ul class="rcarousel">
+											
+											
+											{% for station in selection %}
+											<!--item {{ station['name'] }}-->
+											<li class="item">
+												
+												<img src="{{ station['logo'] }}" alt="{{ 'Listen to'|trans }} {{ station['onAir'] }} {{ 'online'|trans }}" width="141" height="141" />
+												<!-- <img src="{{ station['showImage'] }}" alt="{{ 'Listen to'|trans }} {{ station['onAir'] }} {{ 'online'|trans }}" width="141px" height="141px" /> -->
+												<div class="mask text-right" style="padding-top:120px;">  
+													<h3 style="color:#FFFFFF;">{{ station['name']|upper }}</h3>											
+												 </div>
+												
+												<div class="action-mask">
+														
+														{% if connected == true %}
+															{% if station['permalink'] in presets_array %}
+														<a href="javascript:;" onclick="return false;" class="s2 action favourite active nogoUrl" style="cursor:default;"></a>
+															{% else %}
+														<a href="javascript:;" onclick="addpreset($(this), '{{ station['permalink'] }}'); return false;" class="s2 action favourite nogoUrl"></a>	
+															{% endif %}
+														{% endif %}
+														<a href="javascript:;" onclick="playStation('{{ station['permalink']|replace({'-': '_'}) }}'); return false;" class="s2 action play nogoUrl"></a>
+														{% if from_ajax == 'true' %}
+														<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station["permalink"]|replace({'radios/': ''}) }) }}'); return false;" title="{{ 'Listen to'|trans }} {{ station['name'] }} {{ 'radios live'|trans }}" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+														{% else %}
+														<a href="{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station["permalink"]|replace({'radios/': ''}) }) }}" title="{{ 'Listen to'|trans }} {{ station['name'] }} {{ 'radios live'|trans }}" class="s2 action overview ajaxy ajaxy-page"></a>
+														{% endif %}
+												</div>
+												
+											</li>
+											<!--//item {{ station['name'] }}-->
+											{% endfor %}
+										
+										</ul>
+									  <!-- Carousel nav -->
+								</div>
+							</div>
+							
+							<div class="clearfix"></div>
+						</div>	
+							
+							
+					</div>

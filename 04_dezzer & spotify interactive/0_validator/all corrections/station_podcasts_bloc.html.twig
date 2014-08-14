@@ -1,0 +1,42 @@
+<div class="section " id="station_podcasts">
+						<div class="section-header navbar">
+							<div class="desc  pull-left"><h2 class="black"><strong>{{ 'Podcasts'|trans }} {{ station.path[0].name }} {{ 'online'|trans }}</strong></h2></div>
+								
+							<div class="clearfix"></div>
+						</div>
+						
+						<div class="section-container">
+						
+							<table class="table table-hover">
+								<tbody>
+								{% for podcast in podcasts %}
+								<tr>
+									<th>
+										{% if from_ajax == 'true' %}
+										<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_podcast', { 'name': station.path[0].name, 'permalink': podcast.permalink|replace({'podcasts/': ''}) }) }}'); return false;" title="{{ podcast.name }}" class="ajaxy ajaxy-page nogoUrl" >
+										{% else %}
+										<a href="{{ path('radiolineco_webapp_podcast', { 'name': station.path[0].name, 'permalink': podcast.permalink|replace({'podcasts/': ''}) }) }}" title="{{ 'Listen to'|trans }} {{ podcast.name }} {{ 'online'|trans }}" class="ajaxy ajaxy-page" >
+										{% endif %}
+										<div class="pull-left"><img src="{{ podcast.smallLogo }}" alt="podcast_logo" /></div>
+											<div style="margin-left:100px;"><strong> ”{{ podcast.name }}”</strong><br>
+											{% if odcast.lastChapterName is defined %}
+											    <span class="hilite">{{ 'Last episod'|trans }} : {{ podcast.lastChapterName }}</span>
+											{% endif %}
+											<img class="pull-right"  src="{{ asset('img/icon-list.png') }}" alt="podcast_list"/>
+										</div>
+										</a>
+										
+									</th>
+								</tr>
+								{% endfor%}
+								</tbody>
+							</table>
+							
+						
+							
+							<div class="clearfix"></div>
+							
+						</div>	
+							
+							
+					</div>

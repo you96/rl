@@ -1,0 +1,31 @@
+{% extends "RadiolinecoWebappBundle::layout.html.twig" %}
+
+{% block main_container %}
+			
+			<ul class="breadcrumb">
+				  <li class="active"><h1>{{ 'Home_baseline'|trans }}</h1></li>				  
+			</ul>
+			<!--- begin content-->
+			<div class="row">
+				<div class="main span8">
+					{% if sitelang == 'fr' %}
+					<a href="/c-categories--catalog--summer-selection.html" ><img src="{{ asset('img/banner/summer_FR.png') }}" alt="summer_FR" style="margin-bottom:5px;" /></a>
+					
+					{% else %}
+					<a href="/c-categories--catalog--summer-selection.html" ><img src="{{ asset('img/banner/summer_EN.png') }}" alt="summer_EN" style="margin-bottom:5px;" /></a>
+					<br>
+					{% endif %}
+					
+					{% if presets|length > 0 %}
+					{% include "RadiolinecoWebappBundle:Generic:home_presets.html.twig" %}
+					{% endif %}
+					
+					{% if showsonair|length > 0 %}
+					{% include "RadiolinecoWebappBundle:Generic:home_programsonair.html.twig" %}
+					{% endif %}
+					
+					{% include "RadiolinecoWebappBundle:Generic:selection_carroussel.html.twig" %}
+				
+{% endblock %}		
+			
+			

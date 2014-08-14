@@ -1,0 +1,32 @@
+<div id="rA" class="tab-pane active">
+												
+													<div id="tracks" class="list_carousel slide">
+							
+															 <!-- Carousel items -->
+															 
+															  <ul id="" class="rcarousel2">
+																	{% for track in tracksonair %}
+																	<!--item {{ track['name'] }} -->
+																	<li class="item item2 text-right">
+																		
+																		<img src="{{ track['showImage'] }}" alt="{{ 'Listen to'|trans }} {{ track['name'] }} {{ 'online'|trans }}" width="141" height="141" />
+																	
+																		<h3>{{ track['name']|upper }}</h3>  
+																		<span class="title">{{ track['onAir'] }}</span>
+																		<span  class="author">{{ track['peopleName'] }}</span>
+																		<div class="action-mask">
+														
+																				<a href="javascript:;" onclick="playStation('{{ track['permalink'] }}'); return false;" class="s2 action play nogoUrl"></a>
+																				<a href="{{ path('radiolineco_webapp_radio', { 'name': track["name"], 'permalink': track["permalink"]|replace({'radios/': ''}) }) }}" class="s2 action overview ajaxy ajaxy-page"></a>
+																			
+																		</div>
+																	</li>
+																	<!--//item {{ track['name'] }}-->
+																	{% endfor %}
+																	
+															  </ul>	
+													</div>		  
+										
+										
+										
+										</div>

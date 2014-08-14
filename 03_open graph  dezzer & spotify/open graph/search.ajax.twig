@@ -1,0 +1,194 @@
+{% extends "RadiolinecoWebappBundle::layout.ajax.twig" %}
+
+
+{% block main_container %}
+			{% set active_category = "" %}
+			<ul class="breadcrumb">
+				  <li><a href="{{ path('radiolineco_webapp_index') }}" class="ajaxy ajaxy-page">Home</a><span class="divider">&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;</span></li>
+				 
+				  		<li class="active"><h1>{{ 'Listen to'|trans }} {{ query }} {{ 'radios live'|trans }} </h1></li>		  
+			</ul>
+	
+	
+			<!--- begin content-->
+			<div class="row">	
+			<div class="main span8">
+	{% if  stations|length > 0 %}
+		
+		<div class="section">
+						<div class="section-header navbar">
+							<div class="desc  pull-left"><h2 class="black"><strong>{{ query }}</strong></h2></div>
+								
+							<div class="clearfix"></div>
+						</div>
+						<!--<div class="section-container" style="height:600px;">-->
+						<div class="tabbable tabs-right">
+						{%  if stations['radio'][0] is defined	%}
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#rA" class="i-show nogoUrl" id="ashow" title="Radios"><span class="s2">/span></a></li>									
+							<li><a data-toggle="tab" href="#rB" class="i-podcast2 nogoUrl" id="atrack" title="Podcasts"><span class="s3 "></span></a></li>
+						</ul>
+						{% else %}
+						{%  if stations['podcast'][0] is defined	%}
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#rB" class="i-podcast2 nogoUrl" id="atrack"><span class="s3 "></span></a></li>
+						</ul>
+						{% endif %}
+						{% endif %}
+						<div class="tab-content">
+								  
+										<!--tab item-->
+						{% if stations['radio'][0] is defined	%}	
+								
+										<div id="rA" class="tab-pane active">
+						<ul class="categories_stations">
+						
+										{% for station in stations['radio'] %}	
+										{% if station.logo is defined %}
+											<!--item {{ station.name }}-->
+											<li class="item" style="background:white;">
+												
+												<img src="{{ station.logo }}" alt="Ecouter {{ station.name }} en ligne" width="141px" height="141px" /> 
+												<div class="mask text-right" style="padding-top:104px;">  
+													<h3 style="color:#FFFFFF; line-height:1.3">{{ station.name|upper }}</h3>											
+												 </div>
+												<div class="action-mask">
+														{% if (station.type == 'radio') %}
+															
+															{% if connected == true %}
+															{% if station.permalink in presets_array %}
+																<a href="javascript:;" onclick="return false;" class="s2 action favourite active nogoUrl" style="cursor:default;"></a>
+																	{% else %}
+																<a href="javascript:;" onclick="addpreset($(this), '{{ station.permalink }}'); return false;" class="s2 action favourite nogoUrl"></a>	
+															{% endif %}
+															{% endif %}
+
+                                                            {% if station.permalink in presets_array %}
+																<a href="javascript:;" onclick="playStation('{{ station.permalink }}');counter('{{ station.permalink }}'); return false;" class="s2 action play nogoUrl"></a>
+															{% else %}
+                                                                <a href="javascript:;" onclick="playStation('{{ station.permalink }}'); return false;" class="s2 action play nogoUrl"></a>
+                                                            {% endif %}
+                                                                <a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station.permalink|replace({'radios/': ''}) }) }}'); return false;" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+														{% else %}
+                                                            {% if station.permalink in presets_array %}
+															    <a href="javascript:;" onclick="playPodcast('{{ station.permalink }}', '{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': station.permalink|replace({'podcasts/': ''}) }) }}');counter('{{ station.permalink }}'); return false;" class="s2 action play nogoUrl"></a>
+															{% else %}
+                                                                <a href="javascript:;" onclick="playPodcast('{{ station.permalink }}', '{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': station.permalink|replace({'podcasts/': ''}) }) }}'); return false;" class="s2 action play nogoUrl"></a>
+                                                            {% endif %}
+                                                                <a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': station.permalink|replace({'podcasts/': ''}) }) }}'); return false;" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+														
+														{% endif %}
+												</div>
+												
+											</li>
+											<!-- end item -->
+										{% endif %}
+										{% endfor %}
+										</ul>
+										
+										{% if stations['radio']['list']['totalPages'] > 1 %}
+										<div class="pagination pull-right">
+										  <ul>
+										    {% for i in 1..stations['radio']['list']['totalPages'] %}
+   												{% if stations['radio']['list']['page'] == i %} 
+											    <li class="active">
+											    {% else %}
+											    <li>
+											    {% endif %}
+											    {% if i == 1 %}
+											    	<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_search', { 'query': query  }) }}'); return false;" class="nogoUrl">{{ i }}</a>
+											    {% else %}
+											    	<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_search', { 'query': query }) }}_pp{{ i }}'); return false;" class="nogoUrl">{{ i }}</a>
+											    	
+											    {% endif %}
+											    </li>
+										    {% endfor %}
+										  </ul>
+										</div>
+										{% endif %}
+										</div>
+							{% endif %}	
+										{%  if stations['radio'][0] is defined	%}	
+										<div id="rB" class="tab-pane">
+										{% else %}
+										<div id="rB" style="display:block;" class="tab-pane">
+										{% endif %}
+										<ul class="categories_stations">
+										{%  if stations['podcast'][0] is not defined	%}
+											{{ 'no result 1'|trans }}<br>
+											<br>
+											{{ 'no result 2'|trans }} <a href="javascript" onclick="goUrl('{{ path('radiolineco_webapp_contact') }}'); return false" style="nogoUrl" ><b>{{ 'no result 3'|trans }}</b></a>
+										{% endif %}
+											
+										{% for podcast in stations['podcast'] %}	
+										{% if podcast.logo is defined %}
+											<!--item {{ podcast.name }}-->
+											<li class="item" style="background:white;">
+												
+												<img src="{{ podcast.logo }}" alt="{{ 'Listen to'|trans }} {{ podcast.name }} {{ 'online'|trans }}" width="141px" height="141px" /> 
+												<div class="mask text-right" style="padding-top:104px;">  
+													<h3 style="color:#FFFFFF; line-height:1.3">{{ podcast.name|upper }}</h3>											
+												 </div>
+												<div class="action-mask">
+														{% if (podcast.type == 'radio') %}
+
+                                                            {% if podcast.permalink in presets_array %}
+																<a href="javascript:;" onclick="playStation('{{ podcast.permalink }}');counter('{{ podcast.permalink }}'); return false;" class="s2 action play nogoUrl"></a>
+															{% else %}
+                                                                <a href="javascript:;" onclick="playStation('{{ podcast.permalink }}'); return false;" class="s2 action play nogoUrl"></a>
+                                                            {% endif %}
+															<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': podcast.permalink|replace({'radios/': ''}) }) }}'); return false;" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+														{% else %}
+                                                            {% if station.permalink in presets_array %}
+															<a href="javascript:;" onclick="playPodcast('{{ podcast.permalink }}', '{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': podcast.permalink|replace({'podcasts/': ''}) }) }}');counter('{{ podcast.permalink }}'); return false;" class="s2 action play nogoUrl"></a>
+															{% else %}
+                                                                <a href="javascript:;" onclick="playPodcast('{{ podcast.permalink }}', '{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': podcast.permalink|replace({'podcasts/': ''}) }) }}'); return false;" class="s2 action play nogoUrl"></a>
+
+                                                            {% endif %}
+															<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': podcast.permalink|replace({'podcasts/': ''}) }) }}'); return false;" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+														
+														{% endif %}
+												</div>
+												
+											</li>
+											<!-- end item -->
+										{% endif %}
+										{% endfor %}
+										</ul>
+										
+										{% if stations['podcast']['list']['totalPages'] > 1 %}
+										<div class="pagination pull-right">
+										  <ul>
+										    {% for i in 1..stations['podcast']['list']['totalPages'] %}
+   												{% if stations['podcast']['list']['page'] == i %} 
+											    <li class="active">
+											    {% else %}
+											    <li>
+											    {% endif %}
+											    {% if i == 1 %}
+											    	
+											    	<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_search', { 'query': query }) }}'); return false;" class="nogoUrl">{{ i }}</a>
+											    	
+											    {% else %}
+											    	<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_search', { 'query': query }) }}_pp{{ i }}'); return false;" class="nogoUrl">{{ i }}</a>
+											    	
+											    {% endif %}
+											    </li>
+										    {% endfor %}
+										  </ul>
+										</div>
+										{% endif %}
+										</div>
+										</div>
+										
+										</div>
+										
+										
+								</div>
+								
+		
+	{% endif %}
+					<!--// end section-->	
+					
+					
+{% endblock %}

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+{% set from_ajax = 'false' %}
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{ sitelang }}"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"  lang="{{ sitelang }}"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"  lang="{{ sitelang }}"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ sitelang }}"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>{{ page_title }}</title>
+        <meta name="description" content="{{ page_description }}">
+        <meta name="viewport" content="width=device-width">
+		<meta property="og:site_name" content="Radioline">
+		<meta property="og:url" content="http://{{ app.request.server.get("HTTP_HOST") }}{{ app.request.getRequestURI() }}" >
+		<meta property="fb:app_id" content="158761204309396" />
+        <meta property="og:site_name" content="Radioline"/>
+        {% if ogtype is defined %}
+            <meta property="og:title" content="{{ name }}">
+            <meta property="og:type"   content="profile" />
+            <meta property="og:imatypeaheadge" content="{{ img }}">
+            <meta property="og:description" content="{{ bio }}">
+            <meta property="og:image"  content="{{ img }}" />
+        {% else %}
+            {% if ogatype is defined %}
+            	{% if ogatype != '' %}
+                    <meta property="og:type"	content="{{ ogatype }}" />
+                {% else %}
+                    <meta property="og:type"   content="music.song" />
+                {% endif %}
+            {% else %}
+                <meta property="og:type"   content="music.song" />
+            {% endif %}
+            
+            <meta property="og:imatypeaheadge" content="{{ page_image }}">
+            <meta property="og:description" content="{{ page_description }}">
+            <meta property="og:image"  content="{{ page_image }}" />
+            {% if ogtitle is defined %}
+                <meta property="og:title" content="{{ ogtitle }}">
+            {% else %}
+                <meta property="og:title" content="{{ page_title }}">
+            {% endif %}
+            {% if singer is defined %}
+                <meta property="music:musician"	content="http://fr-fr.radioline.co/1-people-{{ singer }}" />
+            {% endif %}
+            {% if ogatype is defined %}
+            	{% if ogatype != '' %}
+                    <meta property="og:type"	content="{{ ogatype }}" />
+                {% endif %}
+            {% endif %}
+        {% endif %}
+{% block meta_noindex %}
+{% endblock %}	
+		<link rel="image_src" href="{{ page_image }}" />
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+		<link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}" />
+        <script src="{{ asset('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
+		
+        
+<script type='text/javascript'>
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+var gads = document.createElement('script');
+gads.async = true;
+gads.type = 'text/javascript';
+var useSSL = 'https:' == document.location.protocol;
+gads.src = (useSSL ? 'https:' : 'http:') + 
+'//www.googletagservices.com/tag/js/gpt.js';
+var node = document.getElementsByTagName('script')[0];
+node.parentNode.insertBefore(gads, node);
+})();
+</script>
+
+<script type='text/javascript'>
+googletag.cmd.push(function() {
+googletag.defineSlot('/110253807/radiolineco', [300, 250], 'div-gpt-ad-1384442861876-0').addService(googletag.pubads());
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+});
+</script>
+
+<script type='text/javascript'>
+googletag.cmd.push(function() {
+googletag.defineSlot('/110253807/radiolineco_728x90', [728, 90], 'div-gpt-ad-1384512484588-0').addService(googletag.pubads());
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+});
+</script>    
+
+<!-- start Mixpanel -->
+<script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+mixpanel.init("314544ba7dc33f336594bc48db0614fc");
+</script>
+<!-- end Mixpanel -->
+
+    </head>
+    <body>
+	<div id="pleaseWaitDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    	<!--<div class="modal-body">
+    		<div class="progress progress-striped active">
+    			<div class="bar" style="width: 100%;"></div>
+    		</div>
+    	</div>-->
+    </div>
+    <span id="website_root" class="hide">{{ url('radiolineco_webapp_index') }}</span>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+        
+{% block main_navbar %}
+        <div class="navbar navbar-inverse navbar-static-top">
+
+       
+            <div class="navbar-inner">
+                <div class="container">
+                <div id="cnildisplay" class="alert alert-info hide" style="height:16px; font-size:10px; margin-bottom:0px; padding:0px 35px 8px 14px;">
+                <button type="button" class="close active" onclick="createCookie('cnilalertaccepted', 'true', 365); $('#cnildisplay').hide(); return false;" aria-hidden="true"><span class="badge">{{ 'cniltext_3'|trans }}</span> &times;</button>
+               
+                {{ 'cniltext_1'|trans }} 
+                {% if sitelang == 'fr' %}
+                <a href="{{ path('radiolineco_webapp_cookieinfo') }}" target="_blank" class="alert-link nogoUrl">{{ 'cniltext_2'|trans }}</a></div>
+                {% else %}
+                <a href="http://privacy.aol.co.uk/cookie-information/" target="_blank" class="alert-link nogoUrl">{{ 'cniltext_2'|trans }}</a></div>
+                {% endif %}
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="{{ path('radiolineco_webapp_index') }}" >Radioline</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav nav-first">
+                            <li class="dropdown"><a href="#" class="dropdown-toggle nogoUrl" title="{{ 'Discover'|trans }}" data-toggle="dropdown">Radioline<b class="caret"></b> </a>
+							
+								<ul class="dropdown-menu">
+                                    <li><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_aboutUs') }}'); $('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active'); return false;" target="_blank" title="{{ 'About'|trans }}">{{ 'About'|trans }}</a></li>
+                                     <li><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_press') }}'); $('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active'); return false;" title="{{ 'Press'|trans }}" target="_blank">{{ 'Press'|trans }}</a></li>
+                                    <li><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_faq') }}'); $('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active'); return false;" target="_blank" title="FAQ">FAQ</a></li>
+                                    <li><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_contact') }}'); $('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active'); return false;" target="_blank" title="{{ 'Contact'|trans }}">{{ 'Contact'|trans }}</a></li>
+                                    <li><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_addRadioReference') }}'); $('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active'); return false;" target="_blank" title="{{ 'addRadioReference'|trans }}">{{ 'addRadioReference'|trans }}</a></li>
+                                    <li><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_becomePartner') }}'); $('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active'); return false;" target="_blank" title="{{ 'becomePartner'|trans }}">{{ 'becomePartner'|trans }}</a></li>
+                                    
+                                </ul>
+							
+							</li>
+                           <li><div class="span3"></div></li>
+                        </ul>
+						
+						<form class="navbar-search pull-left" onsubmit="return false;" >
+						  <input type="text" onkeyup="typeaheadtext = this.value;" id="typeahead" autocomplete="off" pattern=".{3,}" data-provide="typeahead" class="search-query typeahead" placeholder="{{ 'Enter a radio station, a show or a track...'|trans}}">
+						</form>
+                      	
+                      	<ul class="nav countries-ul" style="left:12px;">
+							<li class="dropdown has-icon">
+
+                            {% if sitelang == 'fr' %}
+                            	<a href="#" class="dropdown-toggle nogoUrl" data-toggle="dropdown"><span><img src="../img/flag_fr.png" alt="flag_fr" /></span><b class="caret"></b></a>
+                            	<ul class="dropdown-menu" style="min-width:113px">
+                               
+                                	<li><a href="http://www.radioline.co/?c=www" title="Radios english" class="nogoUrl" style="padding-left:6px;"><img src="../img/flag_uk.png" alt="flag_en" /> English</a></li>
+                               
+                                </ul>
+                            {% else %}
+                            	<a href="#" class="dropdown-toggle nogoUrl" data-toggle="dropdown"><span><img src="../img/flag_uk.png" alt="flag_en" /></span><b class="caret"></b></a>
+                            	<ul class="dropdown-menu" style="min-width:113px">
+                               
+                                	<li><a href="http://fr-fr.radioline.co/" title="Radios françaises" class="nogoUrl" style="padding-left:6px;"><img src="../img/flag_fr.png" alt="flag_fr" /> Français</a></li>
+                               
+                                </ul>
+                            {% endif %}   
+                                
+                                
+                            </li>
+							
+						</ul>
+						
+						<ul class="nav  pull-right user-nav" id="usernav">
+						{% include "RadiolinecoWebappBundle:Blocs:header_signin.bloc.twig" %}
+						</ul>
+						
+						<ul class="nav  pull-right user-share" style="margin-right:11px;">
+							<li class="dropdown has-icon">
+                                <a href="#" class="dropdown-toggle nogoUrl" data-toggle="dropdown"><span class="s1 i-share">{{ 'Share'|trans }}</span><b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:;" onclick="share('{{ url('radiolineco_webapp_index') }}?l={{ 'lang'|trans }}', 'facebook', ''); return false;" class="s1 fb nogoUrl" title="Facebook">Facebook</a></li>
+                                    <li><a href="javascript:;" onclick="share('{{ url('radiolineco_webapp_index') }}?l={{ 'lang'|trans }}', 'twitter', '{{ 'site_title'|trans }}'); return false;" class="s1 tw nogoUrl" title="Twitter" >Twitter</a></li>
+                                    <li><a href="javascript:;" onclick="share('{{ url('radiolineco_webapp_index') }}?l={{ 'lang'|trans }}', 'google', ''); return false;" class="s1 gplus nogoUrl" title="Google+" >Google+</a></li>                                
+                                </ul>
+                            </li>
+							
+						</ul>	
+						
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+		
+		<div class="navbar navbar-second navbar-static-top ">
+			 <div class="navbar-inner">
+                <div class="container" id="horizmenu">
+							{% include "RadiolinecoWebappBundle:Blocs:horizontal_menu.bloc.twig" %}	
+				</div>
+			</div>	
+		
+		</div>
+{% endblock %}	
+
+<div id="main_container">
+
+<div class="container">
+{% block main_container %}
+{% endblock %}
+
+</div>
+				
+				<!--Aside col-->
+				<div class="aside span4">
+				
+{% block ad_300x250 %}		
+				<div class="section banner">		
+					<!--<iframe height="250" width="300" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" src="{{ asset('ad/ad300x250.html') }}">
+                    </iframe>-->
+                    
+<div id='div-gpt-ad-1384442861876-0' style='width:300px; height:250px;'>
+						<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('div-gpt-ad-1384442861876-0'); });
+						</script>
+					</div>                    
+                    <div id="bancampanion" style="display:none"></div>
+				</div>
+				
+				<br />
+{% endblock %}				
+					
+
+{% block right_content %}		
+			<div id="myCarouselAutoPromo" class="carousel slide">
+				<div class="carousel-inner">
+				{% if sitelang == 'fr' %}
+					<div class="active item" style="width:300px; height:100px;"><a href="https://play.google.com/store/apps/details?id=com.radioline.android.radioline&amp;hl=fr" target="_blank" title="Radioline Android" class="nogoUrl" ><img src="{{ asset('img/banner/300x100_android.png') }}" class="img-rounded" alt="" /></a></div>
+					<div class="item" style="width:300px; height:100px;"><a href="https://itunes.apple.com/fr/app/liveradio/id287955524?mt=8" target="_blank" title="Radioline iPhone" class="nogoUrl" ><img src="{{ asset('img/banner/300x100_iphone.png') }}" class="img-rounded" alt="" /></a></div>
+					<div class="item" style="width:300px; height:100px;"><a href="https://itunes.apple.com/fr/app/liveradio-by-radioline-pour/id398457207?mt=8" target="_blank" title="Radioline iPad" class="nogoUrl" ><img src="{{ asset('img/banner/300x100_ipad.png') }}" class="img-rounded" alt="" /></a></div>
+				{% else %}
+					<div class="active item" style="width:300px; height:100px;"><a href="https://play.google.com/store/apps/details?id=com.radioline.android.radioline&amp;hl=en" target="_blank" title="Radioline Android" class="nogoUrl" ><img src="{{ asset('img/banner/300x100_android_en.png') }}" class="img-rounded" alt="" /></a></div>
+					<div class="item" style="width:300px; height:100px;"><a href="https://itunes.apple.com/us/app/liveradio/id287955524?mt=8" target="_blank" title="Radioline iPhone" class="nogoUrl" ><img src="{{ asset('img/banner/300x100_iphone_en.png') }}" class="img-rounded" alt="" /></a></div>
+					<div class="item" style="width:300px; height:100px;"><a href="https://itunes.apple.com/us/app/liveradio-by-radioline-pour/id398457207?mt=8" target="_blank" title="Radioline iPad" class="nogoUrl" ><img src="{{ asset('img/banner/300x100_ipad_en.png') }}" class="img-rounded" alt="" /></a></div>
+				{% endif %}
+				</div>
+			</div>
+
+{% endblock %}	
+
+{% block similar_content %}
+{% endblock %}
+
+			</div>
+			<div class="clearfix"></div>
+		</div> <!-- //row -->
+		</div> <!-- /container -->
+
+		<div class="banner1 text-center section" style="width:728px; margin-left:auto; margin-right:auto;">			
+<!--<iframe height="90" width="728" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" src="{{ asset('ad/ad728x90.html') }}">
+                    </iframe>-->
+                    
+<div id='div-gpt-ad-1384512484588-0' style='width:728px; height:90px;'>
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1384512484588-0'); });
+</script>
+</div>                    
+                    
+                    					</div>
+                    					<br>
+                    					<br>
+<br>
+<div id="divbr" class="hide">
+<br>
+<br>
+<br>
+<br>
+</div>
+
+</div>
+		
+{% block footer %}		
+		<!--<footer id="footer" >
+				<div class="container">
+						<div class="row">
+									<p class="pull-left offset3">&copy; Copyright <span>Radioline</span> 2013</p>
+									<ul class="nav pull-left">
+											<li><a href="" title="{{ 'About'|trans }}" class="ajaxy ajaxy-page">{{ 'About'|trans }}</a> </li>
+											<li><a href="#" title="{{'Legal Notice'|trans}}">{{'Legal Notice'|trans }}</a></li>
+											<li><a href="#" title="{{ 'Contact'|trans }}">{{ 'Contact'|trans }}</a></li>
+									</ul>
+						</div>
+				</div>
+        </footer>-->
+        
+    <div id="footer">
+		<div class="container containerN">
+			<div class="row rowN">
+				<div class="span3 visit col-xs-7">
+					{% if sitelang == 'fr' %}
+					<a href="https://itunes.apple.com/fr/app/liveradio/id287955524?mt=8" title="App Store" class="app-store nogoUrl" target="_blank"><img src="{{ asset('img/app_store.png') }}" alt="App store"/></a>
+					<a href="https://play.google.com/store/apps/details?id=com.radioline.android.radioline&amp;hl=fr" title="Google play" class="gg-play nogoUrl" target="_blank"><img src="{{ asset('img/google_play.png') }}" alt="Google play"/></a>
+					{% else %}
+					<a href="https://itunes.apple.com/fr/app/liveradio/id287955524?mt=8" title="App Store" class="app-store nogoUrl" target="_blank"><img src="{{ asset('img/app_store_en.png') }}" alt="App store"/></a>
+					<a href="https://play.google.com/store/apps/details?id=com.radioline.android.radioline&amp;hl=fr" title="Google play" class="gg-play nogoUrl" target="_blank"><img src="{{ asset('img/google_play_en.png') }}" alt="Google play"/></a>
+					{% endif %}
+					<img src="{{ asset('img/device.png') }}" alt="Device"/> 
+				</div>
+				
+				<div class="span5 social col-xs-5 pull-right">	
+					<ul style="float:left; color:white; margin-right:30px; margin-top:9px;">
+					<li style="margin-right:25px;"><a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_contact') }}'); return false;" target="_blank" title="{{ 'Contact'|trans }}" style="color:white;">Contact</a></li>
+					<li style="display:inline;width=20px;"><a href="javascript:;" onclick="window.open('http://www.radioline.co/cgu.php?app=Radioline','', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'); return false;" target="_blank" title="{{ 'Legal Notice'|trans }}" style="color:white;width:104px;" class="nogoUrl">{{ 'Legal Notice'|trans }}</a></li>
+				</ul>			
+					<ul>
+						<li class="first facebook"><a href="http://www.facebook.com/RadiolineApp" target="_blank" class="nogoUrl" title="facebook">facebook</a></li>
+						<li class="twitter"><a href="http://www.twitter.com/RadiolineFrance" target="_blank" class="nogoUrl" title="twitter">twitter</a></li>
+						<li class="gg-plus"><a href="https://plus.google.com/101902006147092147988/" class="nogoUrl" target="_blank" title="gplus">gplus</a></li>
+						<li class="pin"><a href="http://www.pinterest.com/Radiolineapp/" target="_blank" class="nogoUrl" title="pin">pin</a></li>
+						<li class="last youtube" title="youtube"><a href="http://www.youtube.com/RadiolineVideos" class="nogoUrl" target="_blank">youtube</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% include "RadiolinecoWebappBundle:Generic:player.html.twig" %}	
+<div id="mainContainer" style="display:none;"><div id="content"><video id="contentElement"></video></div>
+<div id="adContainer"></div>
+</div>	
+		
+		<!-- MODAL SIGNIN  -->
+			<div id="myConnection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">			 
+					 
+					 {% include "RadiolinecoWebappBundle:Signin:signin_bloc.ajax.twig" %}   
+			</div>
+		
+        <script>window.jQuery || document.write('<script src="{{ asset('js/vendor/jquery-1.10.1.min.js') }}"><\/script>')</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="{{ asset('js/jquery-ajaxy/scripts/jquery.ajaxy.min.js') }}"><\/script>')</script>
+        <script src="{{ asset('js/vendor/bootstrap.js') }}"></script>
+
+        <script src="{{ asset('js/plugins.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/swfobject.js') }}"></script>
+        <!--<script type="text/javascript" src="{{ asset('js/audio-player.js') }}"></script>-->
+        <script type="text/javascript" src="{{ asset('js/jquery.jplayer.js') }}"></script>
+        <script src="{{ asset('js/main.js') }}"></script>
+        
+{% if autoconnect is not defined %}
+{% set autoconnect = 'false' %}
+{% endif%}
+
+        <script type="text/javascript">
+        	sitelang = '{{ sitelang }}';
+        	autoconnect = '{{ autoconnect }}';
+        </script>
+        <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40689766-1']);
+  _gaq.push(['_setDomainName', 'radioline.co']);
+  _gaq.push(['_trackPageview']);
+  setTimeout("_gaq.push(['_trackEvent', '45_seconds', 'read'])",45000);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+{% if autoconnect == 'false' %}
+<script type="text/javascript">
+		var _ttf = _ttf || [];
+		_ttf.push({
+			format:			'inflow',
+			triggerMode:	'direct', 
+			logo: 'http://www.radioline.co/img/logooutstream.png', // url du logo au format 140x38
+			capping_vu:	4320, // valeur en minutes, à changer à 0 si le capping est géré côté Adserveur Display
+			vast:			"http://ad4.liverail.com/?LR_ADMAP=in::0&LR_VIDEO_POSITION=0&LR_SCHEMA=vast2&LR_AUTOPLAY=0&LR_PUBLISHER_ID=20230&LR_VERTICALS=outstream&LR_TITLE=Radioline_title&LR_VIDEO_ID=Radioline_videoID&LR_CONTENT=4&LR_PARTNERS=&LR_CATEGORIES=100&CACHEBUSTER="+(new Date).getTime()
+		}); 
+		(function(d){
+			var js, s = d.getElementsByTagName('script')[0];
+			js = d.createElement('script'); js.async = true;
+			js.src = "//cdn.teads.tv/js/all-v1.js";
+			s.parentNode.insertBefore(js, s);
+		})(window.document);
+</script>
+{% endif %}
+
+<script type="text/javascript" src="http://s0.2mdn.net/instream/html5/ima3.js"></script>
+<script type="text/javascript">
+  var adContainerElement = document.getElementById('adContainer');
+  var adDisplayContainer = new google.ima.AdDisplayContainer(adContainerElement);
+  var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+</script>
+
+    </body>
+</html>

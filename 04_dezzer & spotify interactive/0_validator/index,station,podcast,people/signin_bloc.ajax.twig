@@ -1,0 +1,93 @@
+<div id="fb-root"></div>
+<script>
+window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '158761204309396', // App ID
+		      status     : true, // check login status
+		      cookie     : true, // enable cookies to allow the server to access the session
+		      xfbml      : true  // parse XFBML
+		    });
+		    };
+		 
+		  (function(d){
+		     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement('script'); js.id = id; js.async = true;
+		     js.src = "//connect.facebook.net/en_US/all.js";
+		     ref.parentNode.insertBefore(js, ref);
+		   }(document));
+</script>		   
+<div id="signinbloc">
+<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 id="myModalLabel">{{ 'Sign in'|trans }}</h3>
+					  </div>
+					  
+					  
+					  <div class="modal-body">
+							<div id="alertdiv" class="alert alert-danger hide"></div>
+							<div class="col pull-left">
+										<form id="signinform">		
+										<p>{{ 'Enter your login details'|trans }}</p>
+										<div class="controls">
+											<input type="text" id="inputEmail" name="inputEmail" placeholder="Email" class="input">
+										</div>
+										
+										<div class="controls">
+											<input type="password" id="inputPassword" name="inputPassword" placeholder="{{ 'Password'|trans }}" class="input">
+										</div>
+										<div class="controls">
+													<a href="javascript:;" onclick="$('#forgottenpassword').css('display', 'block'); $('#signinbloc').css('display', 'none'); return false;" class="pull-left">{{ 'Forgot password?'|trans }}</a><br>
+													<a href="javascript:;" onclick="$('#signupbloc').css('display', 'block'); $('#signinbloc').css('display', 'none'); return false;" class="pull-left nogoUrl">{{ 'Create an account'|trans }} ?</a>
+													<button type="submit" class="btn btn2 pull-right" onclick="signin(); return false;" >{{ 'Sign in'|trans }}</button>
+													<div class="clear"></div>
+										</div>
+										</form>
+								
+							</div>
+							
+							<div class="col pull-right">
+										<p>{{ 'Or connect with:'|trans }}</p>
+										
+										<a href="javascript:;" onclick="loginFacebook(0); return false;" title="{{ 'Connect with Facebook'|trans }}" class="social-btn nogoUrl"><span class="s3 fb-connect "></span><span>{{ 'Connect with Facebook'|trans }}</span></a>
+													
+							</div>
+							
+					  </div>
+</div>
+<div id="forgottenpassword" style="display:none;">
+	<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 id="myModalLabel">{{ 'Forgot password?'|trans }}</h3>
+					  </div>
+					  
+					  
+					  <div class="modal-body">
+							<div id="alertdivrp" class="alert alert-danger hide"></div>
+							<div id="alertdivsuccessrp" class="alert alert-success hide">
+							{{ 'A new password has been sent to you by email.'|trans }}
+							</div>
+							<div class="connection-3" id="resetformdiv">
+										<form id="resetform">		
+										<p>{{ 'Enter your Radioline identifier'|trans }} :</p>
+										<div class="controls">
+											<input type="text" id="fpinputEmail" name="fpinputEmail" placeholder="Email" class="input" style="width:415px;">
+										</div>
+										
+										<div class="controls" style="width:450px;">
+													<button type="submit" class="btn btn2 pull-right" onclick="resetPassword(); return false;" >{{ 'send'|trans }}</button>
+													<button type="submit" onclick="$('#forgottenpassword').css('display', 'none'); $('#signinbloc').css('display', 'block'); return false;" class="btn btn2 pull-left" style="margin-left:44px; color:#000000; text-shadow:0 0 0;"> {{ 'cancel'|trans }}</button>
+													
+													
+													
+													<div class="clear"></div>
+										</div>
+										</form>
+								
+							</div>
+							
+					  </div>
+</div>
+<div id="signupbloc" style="display:none;">
+	{% include "RadiolinecoWebappBundle:Signin:signup_bloc1.ajax.twig" %} 
+</div>

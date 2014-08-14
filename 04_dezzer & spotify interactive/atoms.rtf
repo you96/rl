@@ -1,0 +1,138 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 STHeitiSC-Light;\f2\froman\fcharset0 Times-Roman;
+}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 16
+\f1 /07\
+\'d2\'aa\'c7\'f3\'a3\'ba\
+\'d4\'da\'d6\'f7\'d2\'b3\'b5\'c4\'b7\'d6\'cf\'ed\'b0\'b4\'c5\'a5/station/podcast\'a3\'ac\'b4\'b4\'bd\'a8twitter\'ba\'cdgoogle+\'b5\'c4\'b7\'d6\'cf\'ed\'c1\'b4\'bd\'d3\'a3\'ac\'ca\'b9\'d3\'c3boot strap\'b5\'c4drop down\
+\'bb\'b9\'d3\'d0\'d4\'dastation/podcast \'d2\'b3\'c3\'e6\'d6\'d0\'a3\'ac\'cc\'ed\'bc\'d3link\'b5\'c4text field\
+\
+1. drop down station\
+/**********\
+<li class="dropdown has-icon">\
+	<a href="#" class="dropdown-toggle nogoUrl" data-toggle="dropdown"><span class="s1 i-share">\{\{ 'Share'|trans \}\}</span><b class="caret"></b></a>\
+	<ul class="dropdown-menu">\
+		<li><a href="javascript:;" onclick="share('\{\{ url('radiolineco_webapp_index') \}\}?l=\{\{ 'lang'|trans \}\}', 'facebook', ''); return false;" class="s1 fb nogoUrl" title="Facebook">Facebook</a></li>\
+		<li><a href="javascript:;" onclick="share('\{\{ url('radiolineco_webapp_index') \}\}?l=\{\{ 'lang'|trans \}\}', 'twitter', '\{\{ 'site_title'|trans \}\}'); return false;" class="s1 tw nogoUrl" title="Twitter" >Twitter</a></li>\
+		<li><a href="javascript:;" onclick="share('\{\{ url('radiolineco_webapp_index') \}\}?l=\{\{ 'lang'|trans \}\}', 'google', ''); return false;" class="s1 gplus nogoUrl" title="Google+" >Google+</a></li>                                \
+	</ul>\
+</li>\
+**********/\
+<a href="javascript:;" onclick="return false;" style="width:22px; height:16px; margin-top:5px;"></a>\
+\
+                                        <span class="dropdown" style="position: absolute; margin-left: -207.5px">\
+                                            <a href="#" class="dropdown-toggle s3 i-share4 nogoUrl" data-toggle="dropdown"></a>\
+                                            <ul class="dropdown-menu">\
+                                                <li><a href="javascript:;" onclick="share('\{\{ url('radiolineco_webapp_radio', \{ 'name': station.path[0].name|replace(\{'.': '_'\}), 'permalink': station.path[0].permalink|replace(\{'radios/': ''\}) \}) \}\}?l=\{\{ 'lang'|trans \}\}', 'facebook', ''); return false;" class="s1 fb nogoUrl" title="Facebook">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>\
+                                                <li><a href="javascript:;" onclick="share('\{\{ url('radiolineco_webapp_radio', \{ 'name': station.path[0].name|replace(\{'.': '_'\}), 'permalink': station.path[0].permalink|replace(\{'radios/': ''\}) \}) \}\}?l=\{\{ 'lang'|trans \}\}', 'twitter', '\{\{ 'site_title'|trans \}\}'); return false;" class="s1 tw nogoUrl" title="Twitter" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>\
+                                                <li><a href="javascript:;" onclick="share('\{\{ url('radiolineco_webapp_radio', \{ 'name': station.path[0].name|replace(\{'.': '_'\}), 'permalink': station.path[0].permalink|replace(\{'radios/': ''\}) \}) \}\}?l=\{\{ 'lang'|trans \}\}',  'google', ''); return false;" class="s1 gplus nogoUrl" title="Google+" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google+</a></li>\
+                                            </ul>\
+                                        </span>\
+\
+2. drop down player\
+<!--\
+										    <a href="javascript:;" onclick="share($('#website_root').text() + currentRadiolink+'?l=\{\{ 'lang'|trans \}\}', 'facebook', ''); return false;" title="Share" class="s2 i-share3 nogoUrl"></a>\
+										-->\
+										<span class="dropup" style="position: absolute;">\
+                                            <a href="#" class="dropdown-toggle s2 i-share3 nogoUrl" data-toggle="dropdown"></a>\
+                                            <ul class="dropdown-menu">\
+                                                <li><a href="javascript:;" onclick="share($('#website_root').text() + currentRadiolink+'?l=\{\{ 'lang'|trans \}\}', 'facebook', ''); return false;" class="s1 fb nogoUrl" title="Facebook">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook</a></li>\
+                                                <li><a href="javascript:;" onclick="share($('#website_root').text() + currentRadiolink+'?l=\{\{ 'lang'|trans \}\}',  'twitter', '\{\{ 'site_title'|trans \}\}'); return false;" class="s1 tw nogoUrl" title="Twitter" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter</a></li>\
+                                                <li><a href="javascript:;" onclick="share($('#website_root').text() + currentRadiolink+'?l=\{\{ 'lang'|trans \}\}',  'google', ''); return false;" class="s1 gplus nogoUrl" title="Google+" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Google+</a></li>\
+                                            </ul>\
+                                        </span>\
+\
+\
+\'b3\'a2\'ca\'d4spotify\'ba\'cddeezer\'b5\'c4\'be\'db\'ba\'cf\
+\'cb\'bc\'c2\'b7\'a3\'basearch\'a1\'aa>track\'a1\'aa>external url\
+\'bd\'abspotify\'ba\'cddeezer\'b5\'c4\'b0\'b4\'c5\'a5\'cd\'acaffiliation\'b5\'c4\'b0\'b4\'c5\'a5\'cd\'ac\'b2\'bd\'b9\'fd\'c0\'b4\
+<a herf="javascript:;" class="s2 i-share3 nogoUrl"></a>\
+                                        <span id="spotifydiv" style="position:absolute; margin-top:-4px;margin-left:66%;" class="affdiv hide">\
+                                            <a style="display:inline;" href="javascript:;" onclick="alert(12);" class="s4 i-spotify2 nogoUrl"></a>\
+                                        </span>\
+								        <span id="deezerdiv" style="position:absolute; margin-top:-4px;margin-left:66%;" class="affdiv hide">\
+                                            <a style="display:inline;" href="javascript:;" onclick="alert(12);" class="s4 i-deezer2 nogoUrl"></a>\
+                                        </span>\
+\
+\'bb\'b9\'d3\'d0\'d5\'e2\'c1\'bd\'b8\'f6\'b0\'b4\'c5\'a5\'d3\'a6\'b8\'c3\'ca\'c7drop-down\'b5\'c4\'a3\'ac\'b5\'ab\'ca\'c7\'b2\'bb\'c4\'dc\'d3\'d0\'cd\'bc\'b0\'b8\
+.dropdown-menu > li > a.fb\{ background-position: -5px -1557px\} \
+.dropdown-menu > li > a.fb:hover\{ background-position:-5px -1600px\} \
+\
+\'c4\'bf\'c7\'b0\'a3\'ac\'d6\'bb\'ca\'c7\'cf\'c8\'b0\'d1\'cd\'bc\'b1\'ea\'cf\'d4\'ca\'be\'b3\'f6\'c0\'b4\'c1\'cb\'a3\'ac\'d7\'f6\'c1\'cb2\'b8\'f6dropdown\'b5\'c4menu\'a3\'ac\'cd\'bc\'b1\'ea\'b5\'c4\'cf\'d4\'ca\'be\'d3\'eb\'d2\'fe\'b2\'d8\'a1\'a3\'a1\'a3\'a1\'a3\
+\
+	$("#buytrackdiv")\'a1\'aa>$(.\'a1\'afhideicon\'a1\'af)\
+\'a3\'a8min.js\'ba\'cdplayer\'d7\'f6\'c1\'cb\'d0\'de\'b8\'c4\'a3\'a9\
+\'a1\'aa\'a1\'aa\'a1\'aa21/07\
+\
+\'cd\'bc\'b1\'ea\'d2\'aa\'ba\'c3\'bf\'b4\'a3\'ac\'b5\'e3\'bb\'f7dropdown \'b2\'cb\'b5\'a5\'d2\'bb\'b8\'f6\'ca\'c7\'d6\'b1\'bd\'d3\'b2\'a5\'b7\'c5\'d2\'f4\'c0\'d6\'b5\'c4\'bb\'b9\'d3\'d0\'d2\'bb\'b8\'f6\'d2\'aa\'b5\'af\'b3\'f6\'b4\'b0\'bf\'da\'c0\'b4\'d1\'a1\'d4\'f1playlist\'bb\'f2\'d5\'df\'d3\'d2\'c9\'cf\'bd\'c7\'b5\'c4new\'c0\'b4\'bc\'d3\'c8\'ebtrack\'b5\'bdplaylist\'d6\'d0\'a1\'a3\
+s2\
+a.i-spotify3\{ background-position:-9px -3432px; \}\
+a.i-spotify3:hover\{ background-position: -9px -3472px; \}\
+\
+a.i-deezer3\{ background-position:-8px -3350px; \}\
+a.i-deezer3:hover\{ background-position: -8px -3390px; \}\
+\
+\'ca\'d7\'cf\'c8\'cd\'a8\'b9\'fd\'cb\'d1\'cb\'f7\'bc\'ec\'b2\'e2\'b3\'f6\'ca\'c7\'b7\'f1\'b4\'e6\'d4\'da\'d3\'daspotify\'ba\'cddeezer\'d6\'d0\
+\'cd\'a8\'b9\'fdpillow\'d5\'d2\'b5\'bd\'b8\'e8\'c3\'fb\'a3\'acsearch\'d5\'d2\'b5\'bdherf\'a3\'ac\
+http://ws.spotify.com/search/1/track.json?q=I KNEW YOU WERE TROUBLE\
+body->tracks[0]->href =   "spottily:track:
+\f2 21K6jcmZPktm7MftqfLfLg
+\f1 "\
+\'c8\'bb\'ba\'f3\'d4\'d9\'cd\'a8\'b9\'fdid\'c0\'b4\'bd\'f8\'c8\'ebspotify, \'d5\'d2\'b5\'bd\'b6\'d4\'d3\'a6url\
+https://api.spotify.com/v1/tracks/21K6jcmZPktm7MftqfLfLg\
+body->external_urls->spotify = "https://open.spotify.com/track/21K6jcmZPktm7MftqfLfLg"\
+\'bb\'f2\'d5\'df\'cd\'a8\'b9\'fdid\'bc\'d3\'c8\'eb\'b5\'bd\'cf\'e0\'d3\'a6\'b5\'c4playlist\'d6\'d0\
+\
+//check track in spotify\
+            var xhr = $.ajax(\{\
+                url: $('#website_root').text()+'spotifysearch/'+singer+'/'+track\
+            \}).success(function(data) \{\
+                if (data == 'NOK') \
+                    $("#spotifyicon").hide();\
+                else\
+                    $("#spotifyicon").show();\
+            \});\
+\
+\
+\'b2\'bb\'d6\'aa\'b5\'c0\'ce\'aa\'ca\'b2\'c3\'b4 \'b5\'c3\'b5\'bd\'b5\'c4\'bd\'e1\'b9\'fb\'d2\'bb\'d6\'b1\'ca\'c7NOK\'a3\'ac\'b6\'f8\'b2\'bb\'ca\'c7url\
+\'bc\'c7\'b5\'c3\'bf\'b4\'bf\'b4\'ca\'c7\'b2\'bb\'ca\'c7singer\'bb\'f2\'d5\'dftrack\'b5\'c4\'ce\'ca\'cc\'e2\
+\'a1\'aa\'a1\'aa\'a1\'aa22/07\
+\
+\
+shit, \'d2\'aa\'d3\'c5\'cf\'c8\'b8\'fc\'b8\'c4soe\'b2\'bf\'b7\'d6\'a1\'a3\'a1\'a3\
+\
+\'bc\'c7\'b5\'c3\'d0\'de\'b8\'c4\'b5\'c4\'ce\'c4\'bc\'fe\'d3\'d0 player, main css /js, routing, pillow, controller\'a1\'ad\
+\
+\
+/***************************************\'ce\'d2\'ca\'c7validator\'b5\'c4\'b7\'d6\'b8\'ee\'cf\'df****************************************/\
+\
+\'bc\'c7\'b5\'c3\'d2\'aa\'b8\'c4\'b5\'bd\'d4\'b4\'b4\'fa\'c2\'eb\'d6\'d0\'a3\'a1\'a3\'a1\
+\
+radiolineco_webapp_index\
+radiolineco_webapp_radio(radiolineco_webapp_radiobis 301)\
+radiolineco_webapp_podcast(radiolineco_webapp_podcastbis 301)\
+radiolineco_webapp_people\
+radiolineco_webapp_peoplePlay(peopleplay)\
+radiolineco_webapp_catalog\
+radiolineco_webapp_moods\
+radiolineco_webapp_moodStations\
+radiolineco_webapp_search\
+/********************************************\'b7\'d6*****\'b8\'ee****\'cf\'df*******************************************/\
+\
+\
+lalettre.pro\'b5\'c43\'b8\'f6\'d7\'ee\'d0\'c2\'b5\'c4actus   \
+\
+\'c8\'bb\'ba\'f3\'ca\'c7station\'d2\'b3\'c3\'e6\'b5\'c4podcast\'d6\'ae\'c9\'cf\'a3\'acprogram, \'ba\'cdFacebook, tweeter\'b5\'c4\'c6\'c0\'c2\'db   \
+\
+\'c8\'bb\'ba\'f3\'ca\'c7pop up\'a3\'ac\'ca\'d6\'bb\'fa\'cf\'d4\'ca\'be\'cf\'c2\'d4\'d8\'a3\'ac \'cd\'f8\'d2\'b3\'b5\'c4\'bb\'b0\'a3\'ac\'d2\'bb\'b6\'ce\'ca\'b1\'bc\'e4\'b3\'f6\'b9\'e3\'b8\'e6~   \
+D\uc0\u201 COUVREZ L\'a1\'afAPPLICATION!\
+\
+tracking  \'c8\'c3\'c6\'e4\'cb\'fb\'b5\'c4\'cd\'f8\'c2\'e7\'b7\'a2\'b9\'e3\'b8\'e6\'a3\'a8radioline.co? XXX=their_id\'a3\'a9\'a3\'ac \'cb\'fb\'c3\'c7\'cd\'f8\'c2\'e7\'d6\'d0\'b5\'c4\'d3\'c3\'bb\'a7\'d7\'a2\'b2\'e1\'a3\'ac\'ce\'d2\'c3\'c7\'cd\'a8\'b9\'fd\'cd\'b3\'bc\'c6\'a3\'ac\'b8\'f8\'cb\'fb\'c3\'c7\'c7\'ae\
+\
+facebook\
+\
+deezer&spotify}

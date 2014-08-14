@@ -1,0 +1,123 @@
+{% extends "RadiolinecoWebappBundle::layout.ajax.twig" %}
+
+
+{% block main_container %}
+			
+			<ul class="breadcrumb">
+				  <li><a href="{{ path('radiolineco_webapp_index') }}" class="ajaxy ajaxy-page" >{{ 'Home'|trans }} </a><span class="divider">&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;</span></li>
+				  
+				  <li class="active"><h1>{{ 'Presets'|trans }}</h1></li>
+				  		
+				  
+			</ul>
+			
+			<!--- begin content-->
+			<div class="row">
+				
+				<div class="main span8">
+				
+			
+	<div class="section">
+						<div class="section-header navbar">
+							<div class="desc  pull-left"><h2 class="black"><strong>{{ 'Presets'|trans }}</strong></h2></div>
+								
+							<div class="clearfix"></div>
+						</div>
+						<!--<div class="section-container" style="height:{{ divheight }}px;">-->
+						<div class="tabbable tabs-right">
+							
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#rA" class="i-show nogoUrl" id="ashow" title="Radios"><span class="s2"></span></a></li>
+							<li><a data-toggle="tab" href="#rB" class="i-podcast2 nogoUrl" id="atrack" title="Podcasts"><span class="s3 "></span></a></li>
+						</ul>
+							<div class="tab-content">
+								<div id="rA" class="tab-pane active">				
+										<ul class="categories_stations">	
+										{% for station in presets %}	
+											<!--item {{ station.name }}-->
+											{% if (station.type == 'radio') %}
+											<li class="item" style="background:white;" id="lif{{ loop.index }}">
+												
+												<img src="{{ station.logo }}" alt="{{'Listen to'|trans}} {{ station.name }} {{ 'online'|trans }}" width="141" height="141" />
+												<div class="mask text-right" style="padding-top:104px;">  
+													<h3 style="color:#FFFFFF; line-height:1.3">{{ station.name|upper }}</h3>											
+												</div>
+												<div class="action-mask">
+														
+															
+															
+															<a href="javascript:;" onclick="removepreset({{ loop.index }}, '{{ station.permalink }}'); return false;" class="s2 m-remove nogoUrl" title="remove"></a>
+															<a href="javascript:;" onclick=" return false;" class="s2 action favourite active nogoUrl" style="cursor:default;"></a>
+																
+														
+																<a href="javascript:;" onclick="playStation('{{ station.permalink }}'); return false;" class="s2 action play nogoUrl"></a>
+															{% if from_ajax == 'true' %}
+															<a href="javascript:;" onclick= "$('#li1').removeClass('active'); $('#li2').removeClass('active'); $('#li3').removeClass('active'); goUrl('{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station.permalink|replace({'radios/': ''}) }) }}'); return false;" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+															{% else %}
+															<a href="{{ path('radiolineco_webapp_radio', { 'name': 'radio', 'permalink': station.permalink|replace({'radios/': ''}) }) }}" title="{{ 'Listen to'|trans }} {{ station.name|upper }} {{ 'radios live'|trans }}" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+															{% endif %}
+														
+													
+												</div>
+												
+											</li>
+											{% endif %}
+											<!-- end item -->
+										{% endfor %}
+										</ul>
+							</div>
+							<div id="rB" class="tab-pane">
+							<ul class="categories_stations">	
+										{% for station in presets %}	
+										{% if (station.type == 'podcast') %}
+											<!--item {{ station.name }}-->
+											<li class="item" style="background:white;" id="lif{{ loop.index }}">
+												
+												<img src="{{ station.logo }}" alt="{{'Listen to'|trans}} {{ station.name }} {{ 'online'|trans }}" width="141" height="141" />
+												<div class="mask text-right" style="padding-top:104px;">  
+													<h3 style="color:#FFFFFF; line-height:1.3">{{ station.name|upper }}</h3>											
+												</div>
+												<div class="action-mask">
+														
+															
+															<a href="javascript:;" onclick="removepreset({{ loop.index }}, '{{ station.permalink }}'); return false;" class="s2 m-remove nogoUrl" title="remove"></a>
+															<a href="javascript:;" onclick="return false;" class="s2 action favourite active nogoUrl" style="cursor:default;"></a>
+															
+															<a href="javascript:;" onclick="playPodcast('{{ station.permalink }}', '{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': station.permalink|replace({'podcasts/': ''}) }) }}'); return false;" class="s2 action play nogoUrl"></a>
+															{% if from_ajax == 'true' %}
+															<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': station.permalink|replace({'podcasts/': ''}) }) }}'); return false;" title="{{ 'Listen to'|trans }} {{ station.name }} {{ 'online'|trans }}" class="s2 action overview ajaxy ajaxy-page"></a>
+															{% else %}
+															<a href="{{ path('radiolineco_webapp_podcast', { 'name': 'podcasts', 'permalink': station.permalink|replace({'podcasts/': ''}) }) }}" title="{{ 'Listen to'|trans }} {{ station.name }} {{ 'online'|trans }}" class="s2 action overview ajaxy ajaxy-page nogoUrl"></a>
+															{% endif %}
+														
+												</div>
+												
+											</li>
+											<!-- end item -->
+											{% endif %}
+										{% endfor %}
+										</ul>
+								</div>		
+					
+			</div>		
+			</div>
+			</div>			
+					<!--// end section-->	
+
+
+<div id="myPresetsConfirm" class="modal hide">
+    <div class="modal-header">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+         <h3>{{ 'Delete'|trans }}</h3>
+    </div>
+    <div class="modal-body">
+        
+        <p>{{ 'Are you sure you want to remove this item form you favorites ?'|trans }}</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" id="btnYes" class="btn danger">{{ 'Yes'|trans }}</a>
+      <a href="#" data-dismiss="modal" aria-hidden="true" class="btn secondary"> {{ 'No'|trans }}</a>
+    </div>
+</div>	
+				
+{% endblock %}

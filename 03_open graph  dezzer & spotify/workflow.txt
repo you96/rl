@@ -98,3 +98,343 @@ function countingTime(timer){
 ---12/6
 大体思路：
 只有一种方式触发open graph，就是在playstation中添加，而且要满足超过30s的前提条件。
+
+—16/6
+首先，最重要的是检测用户是否登录，并且检测是否有可以用facebook账户
+playStation 的permalink分为两种 radios/..的直播和chapters/..的录播
+radiolineco_webapp_radio:
+    pattern:  /radio/{name}-r-{permalink}.html
+//貌似name没有什么用
+
+第一部分  30s
+var t;
+//playStation
+//counting time in order to publish open graph on facebook
+    var timer=10000;
+    clearTimeout(t);
+    t = setTimeout(function(){publishOg(permalink);},timer);
+第二部分  og
+提前在页面上添加js和meta Tags
+function publishOg(permalink){
+    console.log(permalink);
+    if(permalink.indexOf('radios') != -1){
+        console.log('share station');
+/*
+        FB.api(
+            'me/music.listens',
+            'post',
+            {
+                song: 'http://fr-fr.radioline.co/radio/radio-r-'+permalink.replace('radios/','')+'.html'
+            },
+            function (response) {
+                if (response && !response.error) {
+
+                    if (!response) {
+                        console.log('Error occurred.');
+                    } else if (response.error) {
+                        console.log(response.error);
+                        alert(response.error.message);
+                    } else {
+                        console.log('Post ID: ' + response.id);
+                    }
+                }
+            }
+        );
+*/
+    }else if(permalink.indexOf('chapters') != -1){
+        //TODO
+        console.log('share podcast');
+        $.getJSON('/Pillow/' + permalink , function(data){
+            var p = data.body.content.podcastPermalink;
+            /*FB.api(
+                'me/music.listens',
+                'post',
+                {
+                    song: 'http://fr-fr.radioline.co/podcast-p-'+ p.replace('podcasts','')+'.html'
+                },
+                function(response) {
+                    // handle the response
+                    if (!response) {
+                        console.log('Error occurred.');
+                    } else if (response.error) {
+                        console.log(response.error);
+                        console.log(response.error.message);
+                    } else {
+                        console.log('Post ID: ' + response.id);
+                    }
+                }
+            );*/
+            console.log("the podcast's permalink is:"+p);
+        });
+
+
+    }else{
+        console.log('error');
+    }
+}
+
+
+
+————17/06 
+添加block在layout，添加meta tag到station和podcast上，添加js准备文件到main.js
+//facebook open graph
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '597312443700897',
+            xfbml      : true,
+            version    : 'v2.0'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+metatag:
+<meta property="fb:app_id" content="597312443700897" />
+        <meta property="og:type"   content="music.song" />
+        <meta property="og:image"  content="{{ page_image }}" />
+
+
+三个条件：
+收听30s
+已经添加到最喜欢的电台
+还有一个是share的两种形式，弹出和自动发布。。。
+
+main.js
+
+
+var t;//6
+
+function counter(permalink){
+    //counting time in order to publish open graph on facebook
+    var timer=10000;
+    clearTimeout(t);
+    t = setTimeout(function(){publishOg(permalink);},timer);
+}
+	
+
+function publishOg(permalink){//440
+    console.log(permalink);
+    if(permalink.indexOf('radios') != -1){
+        console.log('share station with permalink:  http://fr-fr.radioline.co/radio/radio-r-'+permalink.replace('radios/','')+'.html');
+
+        FB.api(
+            'me/music.listens',
+            'post',
+            {
+                song: 'http://fr-fr.radioline.co/radio/radio-r-'+permalink.replace('radios/','')+'.html'
+            },
+            function (response) {
+                if (response && !response.error) {
+
+                    if (!response) {
+                        console.log('Error occurred.');
+                    } else if (response.error) {
+                        console.log(response.error);
+                        alert(response.error.message);
+                    } else {
+                        console.log('Post ID: ' + response.id);
+                    }
+                }
+            }
+        );
+
+    }else if(permalink.indexOf('chapters') != -1){
+        //TODO
+        console.log('share podcast');
+        $.getJSON('/Pillow/' + permalink , function(data){
+            var p = data.body.content.podcastPermalink;
+            FB.api(
+                'me/music.listens',
+                'post',
+                {
+                    song: 'http://fr-fr.radioline.co/podcast/podcast-p-'+ p.replace('podcasts/','')+'.html'
+                },
+                function(response) {
+                    // handle the response
+                    if (!response) {
+                        console.log('Error occurred.');
+                    } else if (response.error) {
+                        console.log(response.error);
+                        console.log(response.error.message);
+                    } else {
+                        console.log('Post ID: ' + response.id);
+                    }
+                }
+            );
+            console.log("the podcast's permalink is:"+'http://fr-fr.radioline.co/podcast/podcast-p-'+ p.replace('podcasts/','')+'.html');
+        });
+
+
+    }else{
+        console.log('error');
+    }
+}
+
+
+function playShoutCast(){
+
+layout.html.twig
+<meta property="og:site_name" content="Radioline">
+    	<meta property="og:title" content="{{ page_title }}">
+    	<meta property="og:imatypeaheadge" content="{{ page_image }}">
+		<meta property="og:description" content="{{ page_description }}">
+		<meta property="og:url" content="http://{{ app.request.server.get("HTTP_HOST") }}{{ app.request.getRequestURI() }}" >
+        <meta property="fb:app_id" content="597312443700897" />
+        <meta property="og:type"   content="music.song" />
+        <meta property="og:image"  content="{{ page_image }}" />
+	
+	<body>
+	<script>
+        //facebook open graph
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '597312443700897',
+                xfbml      : true,
+                version    : 'v2.0'
+            });
+            console.log('123');
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+	</script>
+
+
+share favorite play
+
+station
+podcast
+search
+on air—>index
+selection—>catalog_station
+decouvrir—>catalog_station
+favoris—>presets
+humeurs—>moods
+people
+pp
+
+
+kao!!!还有playpodcast
+pp,search
+
+还有一个事：要测试在prod上必须限制只能是我和z的facebook账户使用这个app，而且还得写一个文档什么的解释下我做的关于open graph的说明- -
+关于账户测试，得要一个privacy policy 的url
+
+
+——27/06
+//TO-DO
+检测登陆情况FB.getLoginStatus
+https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus
+
+FB.getLoginStatus(function(response) {
+	if (response.status === 'connected') {
+		var timer=5000;
+    		clearTimeout(t);
+    		t = setTimeout(function(){publishOg(permalink);},timer);
+	}else if (response.status === 'not_authorized') {
+    	console.log(‘the user is logged in to Facebook, but has not authenticated your app’);
+  	} else {
+    	console.log(‘the user isn't logged in to Facebook.’);
+  	}
+});
+
+还有og:title的修改
+—1/7
+{% if ogtitle is empty %}
+            <meta property="og:title" content="{{ page_title }}">
+        {% else %}
+    	    <meta property="og:title" content="{{ ogtitle }}">
+    	{% endif %}
+GenericController
+stationAction & podcastAction 添加相应ogtitle变量的传入
+
+
+还有一个严重的问题，没有测试呢~
+—02/07
+
+
+
+小结：
+这次做的有错误，
+首先理解错了，不是3个condition：play, favoris, partager.而是3种完全不同的情况。。
+然后，讲所有的内容改在layout页面上，而且讲响应的变量放入controller中，最后再调用main.js的方法。
+playStation中的counter，以及addpresets中的publishOgTrack。。。
+只用改3个文件的内容，我自己改了20多个- -
+
+—08/07
+D'ici la fin de la semaine, voici tes objectifs :
+- Récupération en locale de la dernière version du site dans le dépôt GIT.
+- Documentation de la partie Open Graph
+- Maitrise des deux API Spotify et Deezer pour:
+    Se connecter
+    Récupérer les derniers tracks écoutés par un utilisateur sur ces services
+    Récupérer les chanteurs favoris des utilisateurs sur ces services
+    Suggestions de radios qui diffusent les derniers tracks ou les favoris
+    Création de playlist 
+    Ajout à une playlist
+    Documentation de ces actions
+
+
+done, but some codes need to be updated on the server.
+
+还有，关于不能本地测试问题，要将不能测试的放prod上，其他放locale然后就能本地测试了。。
+
+
+
+
+
+还有需要测试！！！！！
+layout的radio station和song
+
+	    {% if ogatype is defined %}
+                {% if ogatype != '' %}
+                    <meta property="og:type"	content="{{ ogatype }}" />
+                {% endif %}
+            {% else %}
+                <meta property="og:type"   content="music.song" />
+            {% endif %}
+add的缩写名字 
+podcast  add    station的url
+————
+
+function addPresetOG(stationpermalink){
+    FB.api(
+        'me/radiolineapps:add',
+        'post',
+        {
+            radio_station: 'http://radioline.co/radio/radio-r-'+stationpermalink.replace('radios/','')+'.html?og=true'
+            //radio_station: $('#website_root').text() + 'radio/radio-r-'+stationpermalink.replace('radios/','')+'.html?og=true'
+        },
+        function(response) {
+            console.log('http://radioline.co/radio/radio-r-'+stationpermalink.replace('radios/','')+'.html?og=true');
+          // handle the response
+            if (response && !response.error) {
+
+                if (!response) {
+                    console.log('Error occurred.');
+                } else if (response.error) {
+                    console.log(response.error);
+                    alert(response.error.message);
+                } else {
+                    console.log('Post ID: ' + response.id);
+                }
+            }
+        }
+    );
+}
+
+————
+
+改时间
+—09/07

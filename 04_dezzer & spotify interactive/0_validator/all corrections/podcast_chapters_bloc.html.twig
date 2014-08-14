@@ -1,0 +1,51 @@
+<div class="section " id="podcast_chapters">
+						<div class="section-header navbar">
+							<div class="desc  pull-left"><h2 class="black"><strong>{{ 'Episodes du podcast'|trans }} {{ podcast.name }}</strong></h2></div>
+								
+							<div class="clearfix"></div>
+						</div>
+						
+						<div class="section-container">
+						
+							<table class="table table-hover">
+								<tbody>
+								{% for chapter in chapters %}
+								<tr>
+									<th>
+										<a href="javascript:;" onclick="playStation('{{ chapter.permalink }}'); return false;" title="{{ chapter.name }}”" class="nogoUrl" >
+										<div class="pull-left"><img src="{{ chapter.smallLogo }}" class="img-polaroid img-rounded" alt="chapter_logo" /></div>
+											<div style="margin-left:100px;font-align:center;"><span style="font-weight:bold;font-size:12px;line-height:0px;margin: 5px 0;">{{ chapter.name }}</span><br>
+											<span class="hilite">{{ chapter.published }}</span>
+											<img class="pull-right"  src="{{ asset('img/play-circle.png') }}" alt="play_circle"/>
+										</div>
+										</a>
+										
+									</th>
+								</tr>
+								{% endfor%}
+								</tbody>
+							</table>
+							
+						
+							<!--
+							<ul class="unstyled">
+								{% for chapter in chapters %}
+									<li style="padding-left:20px; margin-bottom: 10px; float:left; margin-right:10px;">
+										<a href="javascript:;" onclick="goUrl('{{ path('radiolineco_webapp_podcast', { 'name': 'podcast', 'permalink': chapter.permalink|replace({'chapters/': ''}) }) }}'); return false;" title="{{ chapter.name }}”" class="ajaxy ajaxy-page nogoUrl" >
+										<div class="pull-left" style="vertical-align:middle;"><img src="{{ chapter.smallLogo }}" /></div>
+											<div class="pull-right" style="margin-left:10px;"><strong> ”{{ chapter.name }}”</strong><br>
+											<span class="hilite">{{ chapter.published }}</span>
+										</div>
+										</a>
+									</li>
+								{% endfor%}
+							</ul>	
+							-->
+						
+							
+							<div class="clearfix"></div>
+							
+						</div>	
+							
+							
+					</div>
